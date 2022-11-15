@@ -1,6 +1,8 @@
+package Test;
 import java.io.File;
+import java.io.Serializable;
 
-public class ObjectInfor {
+public class ObjectInfor implements Serializable{
 	public File file;
 	public String author;
 	public String date;
