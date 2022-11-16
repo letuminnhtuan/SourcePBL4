@@ -1,56 +1,35 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class XuLyFile {
-	public File file;
 
-	public XuLyFile(String path) {
-		file = new File(path);
-		if (!this.file.exists()) {
-			this.file.mkdir();
-			System.out.println("Successful!");
-		} else {
-			System.out.println("Fail");
-		}
+	public XuLyFile() {
 	}
 
 	public void createFolderInPath(String nameFolder) {
-		try {
-			String path = this.file.getPath();
-			System.out.println(path);
-			File create = new File(path + "\\" + nameFolder);
-			create.mkdir();
-		} catch (Exception e) {
-
-		}
-	}
-
-	public void createFileInPath(String nameFile) {
-		try {
-			String path = this.file.getPath();
-			File create = new File(path + "\\" + nameFile);
-			if (create.createNewFile()) {
-				System.out.println("Successful!");
-			} else {
-				System.out.println("Fail");
-			}
-		} catch (IOException e) {
-			System.err.println(e);
-		}
-	}
-	public void showFileChild() {
-		for(File i : this.file.listFiles()) {
-			System.out.println(i.getAbsolutePath());
-		}
-	}
-
-	public void showDetailofFile() {
-		// Recursive
 		
 	}
 
-//	public static void main(String[] args) {
-//		XuLyFile xl = new XuLyFile("E:\\Assignment1\\html");
-//		xl.showFileChild();
-//	}
+	public void createFileInPath(String nameFile) {
+		
+	}
+
+	public void readFile(File desFile, File srcFile) {
+		try {
+			Scanner sc = new Scanner(srcFile);
+			FileWriter fw = new FileWriter(desFile);
+			while (sc.hasNextLine()) {
+				fw.write(sc.nextLine());
+			}
+			sc.close();
+			fw.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
