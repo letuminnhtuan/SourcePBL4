@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import javax.swing.JTextArea;
 
 import ClassObj.ObjInfor;
+import XuLi.XuLiTacVu;
 
 public class ClientThread extends Thread{
 	public ObjectInputStream dataInput;
@@ -21,7 +22,9 @@ public class ClientThread extends Thread{
 			while(true) {
 				ObjInfor obj = (ObjInfor) dataInput.readObject();
 				//System.out.println(dataInput.readObject().getClass());
-				text.append(obj.file.getName() + "\n");
+				XuLiTacVu xl = new XuLiTacVu();
+				xl.CreateFile(obj.file.getName());
+				text.append("Send: " + obj.file.getName() + "\n");
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

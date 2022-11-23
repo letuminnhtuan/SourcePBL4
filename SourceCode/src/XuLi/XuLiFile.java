@@ -11,13 +11,9 @@ public class XuLiFile {
 	}
 
 	public void createFolderInPath(String path, String nameFolder) {
-		try {
-			File f = new File(path + "\\" + nameFolder);
-			f.delete();
-			f.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		File f = new File(path + "\\" + nameFolder);
+		f.delete();
+		f.mkdir();
 	}
 
 	public void createFileInPath(String path, String nameFile) {
