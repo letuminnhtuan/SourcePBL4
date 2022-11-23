@@ -70,7 +70,6 @@ public class Client extends JFrame implements ActionListener {
 			System.out.println(obj);
 			dataOutput.writeObject(obj);
 		} catch (Exception e1) {
-			System.out.println("Loi dong 74");
 			e1.printStackTrace();
 		}
 	}
