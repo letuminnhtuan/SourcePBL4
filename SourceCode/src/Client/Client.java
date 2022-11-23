@@ -64,7 +64,7 @@ public class Client extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		try {
 			JFileChooser fileChoose = new JFileChooser();
-			fileChoose.showDialog(this, "Select file");
+			fileChoose.showDialog(this, "Open");
 			File f = fileChoose.getSelectedFile();
 			ObjInfor obj = new ObjInfor(f, "author", "now", "none");
 			System.out.println(obj);

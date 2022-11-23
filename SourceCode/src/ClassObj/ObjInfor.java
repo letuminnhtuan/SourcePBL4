@@ -16,6 +16,6 @@ public class ObjInfor implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return this.author;
+		return this.file.getName();
 	}
 }
