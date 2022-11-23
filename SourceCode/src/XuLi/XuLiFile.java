@@ -1,4 +1,5 @@
 package XuLi;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +15,11 @@ public class XuLiFile {
 		File f = new File(path + "\\" + nameFolder);
 		f.delete();
 		f.mkdir();
+	}
+
+	public void deleteFile(String path, String nameFile) {
+		File f = new File(path + "\\" + nameFile);
+		f.delete();
 	}
 
 	public void createFileInPath(String path, String nameFile) {
