@@ -25,8 +25,7 @@ public class Upload implements ActionListener{
 //			DefaultTreeModel model = (DefaultTreeModel)this.f.tree.getModel();
 //			DefaultMutableTreeNode root = (DefaultMutableTreeNode)model.getRoot();
 //			model.reload(root);
-			this.f.removeAll();
-			this.f.SetGUI();
+			this.f.tree.setModel(this.f.DisplayTree_());
 			//this.f.SetGUI();
 			//this.f.DisplayTree();
 			

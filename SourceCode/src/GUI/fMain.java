@@ -15,6 +15,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
 
 import XuLi.Upload;
 
@@ -76,6 +77,24 @@ public class fMain extends JFrame {
 
 		
 		pnTree.setPreferredSize(new Dimension(300, 0));
+	}
+	public TreeModel DisplayTree_() {
+		pnTree = new JPanel();
+		pnTree.setLayout(new BorderLayout());
+		root = new DefaultMutableTreeNode("Home");
+		tree = new JTree(root);
+		// Display list file in folder sync
+		LoadTree(root, "E:\\TestPBL4\\User\\");
+
+		// end
+		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		pnTree.add(sc, BorderLayout.CENTER);
+
+		
+		pnTree.setPreferredSize(new Dimension(300, 0));
+		
+		return tree.getModel();
 	}
 
 	public void LoadTree(DefaultMutableTreeNode root, String path) {
