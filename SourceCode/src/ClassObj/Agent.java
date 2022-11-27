@@ -17,5 +17,13 @@ public class Agent {
 		this.path = path;
 		this.role = role;
 	}
-	
+	public Agent(Agent user) {
+		this.name = user.name;
+		this.username = user.username;
+		this.password = user.password;
+		this.host = user.host;
+		this.port = user.port;
+		this.path = user.path;
+		this.role = user.role;
+	}
 }

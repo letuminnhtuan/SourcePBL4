@@ -15,7 +15,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import ClassObj.Agent;
 import ClassObj.ObjInfor;
+import Database.DBHelper;
+import XuLi.XuLiTacVu;
 
 @SuppressWarnings("serial")
 public class Client extends JFrame implements ActionListener {
@@ -26,8 +29,10 @@ public class Client extends JFrame implements ActionListener {
 	public Socket socket;
 	public ObjectInputStream dataInput;
 	public ObjectOutputStream dataOutput;
+	public Agent user;
 
-	public Client(String host, int port) throws Exception {
+	public Client(String host, int port, Agent user) throws Exception {
+		user = new Agent(user);
 		socket = new Socket(host, port);
 		dataOutput = new ObjectOutputStream(socket.getOutputStream());
 		dataInput = new ObjectInputStream(socket.getInputStream());
@@ -66,7 +71,7 @@ public class Client extends JFrame implements ActionListener {
 			JFileChooser fileChoose = new JFileChooser();
 			fileChoose.showDialog(this, "Open");
 			File f = fileChoose.getSelectedFile();
-			ObjInfor obj = new ObjInfor(f, "author", "now", "none");
+			ObjInfor obj = new ObjInfor(f, this.user, "now", "none");
 			System.out.println(obj);
 			dataOutput.writeObject(obj);
 		} catch (Exception e1) {
@@ -75,7 +80,9 @@ public class Client extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Client cl = new Client("127.0.0.1", 9090);
+		DBHelper db = new DBHelper();
+		Agent a = db.getAgentByUsername("minhtuan");
+		Client cl = new Client("127.0.0.1", 9090, a);
 		while(true) {
 			if(!cl.isShowing()) {
 				cl.socket.close();

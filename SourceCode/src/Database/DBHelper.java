@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import ClassObj.Agent;
 
 public class DBHelper {
-	public ArrayList<Agent> GetAllAgent() {
+	public ArrayList<Agent> getAllAgent() {
 		ArrayList<Agent> list = new ArrayList<Agent>();
 		Connection cnn = null;
 		try {
@@ -24,9 +24,19 @@ public class DBHelper {
 		}
 		return list;
 	}
+	public Agent getAgentByUsername(String username) {
+		Agent a = null;
+		for(Agent i : getAllAgent()) {
+			if(i.username.equals(username)) {
+				a = new Agent(i);
+				break;
+			}
+		}
+		return a;
+	}
 	public static void main(String[] args) {
 		DBHelper db = new DBHelper();
-		for(Agent i : db.GetAllAgent()) {
+		for(Agent i : db.getAllAgent()) {
 			System.out.println(i.name);
 		}
 	}

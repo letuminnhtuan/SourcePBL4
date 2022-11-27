@@ -1,5 +1,6 @@
 package Client;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -20,10 +21,13 @@ public class ClientThread extends Thread{
 	public void run() {
 		try {
 			while(true) {
+				// Client nhận được file 
 				ObjInfor obj = (ObjInfor) dataInput.readObject();
-				//System.out.println(dataInput.readObject().getClass());
+				
+				// Tạo file với đường dẫn tương ứng
 				XuLiTacVu xl = new XuLiTacVu();
-				xl.CreateFile(obj.file.getName());
+				
+				
 				text.append("Send: " + obj.file.getName() + "\n");
 			}
 		} catch (IOException e) {

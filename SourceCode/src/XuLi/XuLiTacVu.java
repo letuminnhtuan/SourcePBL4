@@ -1,24 +1,50 @@
 package XuLi;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
-import ClassObj.Agent;
-import Database.DBHelper;
 
 public class XuLiTacVu {
 	public XuLiTacVu() {
 	}
 
-	public void CreateFile(String fileName) {
-		DBHelper db = new DBHelper();
-		XuLiFile xl = new XuLiFile();
-		ArrayList<Agent> list = db.GetAllAgent();
-		for (Agent i : list) {
-			xl.createFileInPath(i.path, fileName);
+	public void createFolderInPath(String path, String nameFolder) {
+		File f = new File(path + "\\" + nameFolder);
+		f.delete();
+		f.mkdir();
+	}
+
+	public void deleteFile(String path, String nameFile) {
+		File f = new File(path + "\\" + nameFile);
+		f.delete();
+	}
+
+	public void createFileInPath(String path, String nameFile) {
+		try {
+			File f = new File(path + "\\" + nameFile);
+			f.delete();
+			f.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		XuLiTacVu xl = new  XuLiTacVu();
-		xl.CreateFile("test.txt");
+
+	public void readFile(File desFile, File srcFile) {
+		try {
+			Scanner sc = new Scanner(srcFile);
+			FileWriter fw = new FileWriter(desFile);
+			while (sc.hasNextLine()) {
+				fw.write(sc.nextLine());
+			}
+			sc.close();
+			fw.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
