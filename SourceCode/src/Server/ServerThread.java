@@ -32,8 +32,7 @@ public class ServerThread extends Thread {
 		try {
 			this.dataOutput.writeObject(obj);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 	}
 
