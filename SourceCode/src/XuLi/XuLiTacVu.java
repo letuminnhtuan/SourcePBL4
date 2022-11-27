@@ -1,10 +1,10 @@
 package XuLi;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Scanner;
 
 
 public class XuLiTacVu {
@@ -34,13 +34,14 @@ public class XuLiTacVu {
 
 	public void readFile(File desFile, File srcFile) {
 		try {
-			Scanner sc = new Scanner(srcFile);
-			FileWriter fw = new FileWriter(desFile);
-			while (sc.hasNextLine()) {
-				fw.write(sc.nextLine());
-			}
-			sc.close();
-			fw.close();
+			FileInputStream fi = new FileInputStream(srcFile);
+			FileOutputStream fo = new FileOutputStream(desFile);
+			int byteRead = -1;
+            while ((byteRead = fi.read()) != -1) {
+            	fo.write(byteRead);
+            }
+			fi.close();
+			fo.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -1,6 +1,8 @@
 package ClassObj;
 
-public class Agent {
+import java.io.Serializable;
+
+public class Agent implements Serializable {
 	public String name;
 	public String username;
 	public String password;
@@ -8,6 +10,7 @@ public class Agent {
 	public int port;
 	public String path;
 	public String role;
+
 	public Agent(String name, String username, String password, String host, int port, String path, String role) {
 		this.name = name;
 		this.username = username;
@@ -17,6 +20,7 @@ public class Agent {
 		this.path = path;
 		this.role = role;
 	}
+
 	public Agent(Agent user) {
 		this.name = user.name;
 		this.username = user.username;

@@ -6,17 +6,20 @@ import java.io.ObjectInputStream;
 
 import javax.swing.JTextArea;
 
+import ClassObj.Agent;
 import ClassObj.ObjInfor;
 import XuLi.XuLiTacVu;
 
 public class ClientThread extends Thread{
 	public ObjectInputStream dataInput;
 	public JTextArea text;
+	public Agent user;
 	
-	public ClientThread(ObjectInputStream dataInput, JTextArea text) {
+	public ClientThread(ObjectInputStream dataInput, JTextArea text, Agent user) {
 		super();
 		this.dataInput = dataInput;
 		this.text = text;
+		this.user = new Agent(user);
 	}
 	public void run() {
 		try {
@@ -26,7 +29,10 @@ public class ClientThread extends Thread{
 				
 				// Tạo file với đường dẫn tương ứng
 				XuLiTacVu xl = new XuLiTacVu();
-				
+				xl.createFileInPath(this.user.path, obj.file.getName());
+				// Ghi file
+				File f = new File(this.user.path + "\\" + obj.file.getName());
+				xl.readFile(f, obj.file);
 				
 				text.append("Send: " + obj.file.getName() + "\n");
 			}

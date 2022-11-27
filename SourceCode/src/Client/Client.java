@@ -32,14 +32,14 @@ public class Client extends JFrame implements ActionListener {
 	public Agent user;
 
 	public Client(String host, int port, Agent user) throws Exception {
-		user = new Agent(user);
+		this.user = new Agent(user);
 		socket = new Socket(host, port);
 		dataOutput = new ObjectOutputStream(socket.getOutputStream());
 		dataInput = new ObjectInputStream(socket.getInputStream());
 		showFrame();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-		new ClientThread(dataInput, text).start();
+		new ClientThread(dataInput, text, this.user).start();
 	}
 
 	public void showFrame() {
@@ -82,11 +82,13 @@ public class Client extends JFrame implements ActionListener {
 	public static void main(String[] args) throws Exception {
 		DBHelper db = new DBHelper();
 		Agent a = db.getAgentByUsername("minhtuan");
+		Agent b = db.getAgentByUsername("ngochieu");
+		Agent c = db.getAgentByUsername("quanghuy");
+		System.out.println(a.path);
+		System.out.println(b.path);
+		System.out.println(c.path);
 		Client cl = new Client("127.0.0.1", 9090, a);
-		while(true) {
-			if(!cl.isShowing()) {
-				cl.socket.close();
-			}
-		}
+		Client cl1 = new Client("127.0.0.1", 9090, b);
+		Client cl2 = new Client("127.0.0.1", 9090, c);
 	}
 }

@@ -44,8 +44,7 @@ public class ServerThread extends Thread {
 				SendAll(obj);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 	}
 }
