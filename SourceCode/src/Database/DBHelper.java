@@ -34,6 +34,15 @@ public class DBHelper {
 		}
 		return a;
 	}
+	public boolean checkLogin(String username, String password) {
+		if(getAgentByUsername(username) == null) {
+			return false;
+		}
+		else if(getAgentByUsername(username).password.equals(password)){
+			return true;
+		}
+		return false;
+	}
 	public static void main(String[] args) {
 		DBHelper db = new DBHelper();
 		for(Agent i : db.getAllAgent()) {
