@@ -102,6 +102,7 @@ public class fMain extends JFrame {
 			}
 			
 		});;
+
 		// Display list file in folder sync
 		LoadTree(root, "E:\\TestPBL4\\Client\\");
 
