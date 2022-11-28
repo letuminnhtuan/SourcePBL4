@@ -39,7 +39,7 @@ public class Client extends JFrame implements ActionListener {
 		showFrame();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-		new ClientThread(dataInput, this.user).start();
+//		new ClientThread(dataInput, this.user).start();
 	}
 
 	public void showFrame() {

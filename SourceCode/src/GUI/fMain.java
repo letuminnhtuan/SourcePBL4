@@ -19,7 +19,6 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 
 import ClassObj.Agent;
@@ -49,7 +48,7 @@ public class fMain extends JFrame {
 		socket = new Socket(host, port);
 		dataOutput = new ObjectOutputStream(socket.getOutputStream());
 		dataInput = new ObjectInputStream(socket.getInputStream());
-		new ClientThread(dataInput, this.user).start();
+		new ClientThread(dataInput, this.user, this).start();
 		SetGUI();
 		this.setSize(new Dimension(1000, 700));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -93,14 +92,15 @@ public class fMain extends JFrame {
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
 				// TODO Auto-generated method stub
-				DefaultMutableTreeNode node =  (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
+				DefaultMutableTreeNode node =(DefaultMutableTreeNode) e.getPath().getLastPathComponent();
 				if(node.isLeaf()) {
 					ObjInfor o = (ObjInfor) node.getUserObject();
-					System.out.println(o.getAuthor());
 					System.out.println(o.getDate());
+					System.out.println(o.getFile());
 					System.out.println(o);
 				}
 			}
+			
 		});;
 		// Display list file in folder sync
 		LoadTree(root, "E:\\TestPBL4\\Client\\");

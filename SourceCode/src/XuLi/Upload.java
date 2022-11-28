@@ -24,7 +24,7 @@ public class Upload implements ActionListener {
 			File f = fileChoose.getSelectedFile();
 			ObjInfor obj = new ObjInfor(f, this.f.user, "now", "none");
 			this.f.dataOutput.writeObject(obj);
-			this.f.tree.setModel(this.f.DisplayTree_());
+//			this.f.tree.setModel(this.f.DisplayTree_());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
