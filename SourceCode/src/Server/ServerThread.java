@@ -26,13 +26,19 @@ public class ServerThread extends Thread {
 //			System.out.println(obj.getClass());
 			c.SendMess(obj);
 		}
+		try {
+			this.dataOutput.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void SendMess(ObjInfor obj) {
 		try {
 			this.dataOutput.writeObject(obj);
 		} catch (IOException e) {
-			
+
 		}
 	}
 
@@ -43,7 +49,7 @@ public class ServerThread extends Thread {
 				SendAll(obj);
 			}
 		} catch (Exception e) {
-			
+
 		}
 	}
 }
