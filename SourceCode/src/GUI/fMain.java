@@ -23,6 +23,7 @@ import javax.swing.tree.TreeModel;
 
 import ClassObj.Agent;
 import ClassObj.ObjInfor;
+import ClassObj.ObjTree;
 import Client.ClientThread;
 import Database.DBHelper;
 import XuLi.Upload;
@@ -94,18 +95,14 @@ public class fMain extends JFrame {
 				// TODO Auto-generated method stub
 				DefaultMutableTreeNode node =(DefaultMutableTreeNode) e.getPath().getLastPathComponent();
 				if(node.isLeaf()) {
-					ObjInfor o = (ObjInfor) node.getUserObject();
-					System.out.println(o.getDate());
-					System.out.println(o.getFile());
-					System.out.println(o);
+					ObjTree o = (ObjTree) node.getUserObject();
+					System.out.println(o.f.getAbsolutePath());
 				}
 			}
 			
 		});;
-
 		// Display list file in folder sync
-		LoadTree(root, "E:\\TestPBL4\\Client\\");
-
+		LoadTree(root, "E:\\TestPBL4\\User\\");
 		// end
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -120,7 +117,7 @@ public class fMain extends JFrame {
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
 		// Display list file in folder sync
-		LoadTree(root, "E:\\TestPBL4\\Client\\");
+		LoadTree(root, "E:\\TestPBL4\\User\\");
 
 		// end
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -134,12 +131,12 @@ public class fMain extends JFrame {
 
 	public void LoadTree(DefaultMutableTreeNode root, String path) {
 		File f = new File(path);
-		DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new ObjInfor(f, user, "abc", "abc"));
+		DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new ObjTree(f));
 		if (f.isDirectory()) {
 			root.add(temp);
 			File[] fs = f.listFiles();
 			for (File i : fs) {
-				System.out.println(i.getAbsolutePath());
+//				System.out.println(i.getAbsolutePath());
 				LoadTree(temp, i.getAbsolutePath());
 			}
 		} else {
