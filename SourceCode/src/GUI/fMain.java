@@ -49,7 +49,7 @@ public class fMain extends JFrame {
 		socket = new Socket(host, port);
 		dataOutput = new ObjectOutputStream(socket.getOutputStream());
 		dataInput = new ObjectInputStream(socket.getInputStream());
-		new ClientThread(dataInput, this.user).start();
+		new ClientThread(dataInput, this.user, this).start();
 		SetGUI();
 		this.setSize(new Dimension(1000, 700));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -88,22 +88,22 @@ public class fMain extends JFrame {
 		pnTree.setLayout(new BorderLayout());
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
-		tree.addTreeSelectionListener(new TreeSelectionListener() {
-			
-			@Override
-			public void valueChanged(TreeSelectionEvent e) {
-				// TODO Auto-generated method stub
-				DefaultMutableTreeNode node =  (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
-				if(node.isLeaf()) {
-					ObjInfor o = (ObjInfor) node.getUserObject();
-					System.out.println(o.getAuthor());
-					System.out.println(o.getDate());
-					System.out.println(o);
-				}
-			}
-		});;
+//		tree.addTreeSelectionListener(new TreeSelectionListener() {
+//			
+//			@Override
+//			public void valueChanged(TreeSelectionEvent e) {
+//				// TODO Auto-generated method stub
+//				DefaultMutableTreeNode node =  (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
+//				if(node.isLeaf()) {
+//					ObjInfor o = (ObjInfor) node.getUserObject();
+//					System.out.println(o.getAuthor());
+//					System.out.println(o.getDate());
+//					System.out.println(o);
+//				}
+//			}
+//		});;
 		// Display list file in folder sync
-		LoadTree(root, "E:\\TestPBL4\\Client\\");
+		LoadTree(root, "E:\\TestPBL4\\User\\");
 
 		// end
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -119,7 +119,7 @@ public class fMain extends JFrame {
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
 		// Display list file in folder sync
-		LoadTree(root, "E:\\TestPBL4\\Client\\");
+		LoadTree(root, "E:\\TestPBL4\\User\\");
 
 		// end
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
