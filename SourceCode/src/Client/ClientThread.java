@@ -12,13 +12,11 @@ import XuLi.XuLiTacVu;
 
 public class ClientThread extends Thread{
 	public ObjectInputStream dataInput;
-	public JTextArea text;
 	public Agent user;
 	
-	public ClientThread(ObjectInputStream dataInput, JTextArea text, Agent user) {
+	public ClientThread(ObjectInputStream dataInput, Agent user) {
 		super();
 		this.dataInput = dataInput;
-		this.text = text;
 		this.user = new Agent(user);
 	}
 	public void run() {
@@ -33,8 +31,6 @@ public class ClientThread extends Thread{
 				// Ghi file
 				File f = new File(this.user.path + "\\" + obj.file.getName());
 				xl.readFile(f, obj.file);
-				
-				text.append("Send: " + obj.file.getName() + "\n");
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -39,7 +39,7 @@ public class Client extends JFrame implements ActionListener {
 		showFrame();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-		new ClientThread(dataInput, text, this.user).start();
+		new ClientThread(dataInput, this.user).start();
 	}
 
 	public void showFrame() {
@@ -72,7 +72,7 @@ public class Client extends JFrame implements ActionListener {
 			fileChoose.showDialog(this, "Open");
 			File f = fileChoose.getSelectedFile();
 			ObjInfor obj = new ObjInfor(f, this.user, "now", "none");
-			System.out.println(obj);
+			//System.out.println(obj);
 			dataOutput.writeObject(obj);
 		} catch (Exception e1) {
 			e1.printStackTrace();
