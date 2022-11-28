@@ -14,6 +14,39 @@ public class ObjInfor implements Serializable{
 		this.date = date;
 		this.note = note;
 	}
+	
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+	public Agent getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Agent author) {
+		this.author = author;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 	@Override
 	public String toString() {
 		return this.file.getName();

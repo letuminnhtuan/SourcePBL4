@@ -104,8 +104,8 @@ public class fLogin extends JFrame implements ActionListener {
 		contentPane.add(btnLogin);
 	}
 	public static void main(String[] args) {
-		fLogin f1 = new fLogin();
-		fLogin f2 = new fLogin();
+	//	fLogin f1 = new fLogin();
+//		fLogin f2 = new fLogin();
 		fLogin f3 = new fLogin();
 	}
 }

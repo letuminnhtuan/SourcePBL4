@@ -16,11 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 
 import ClassObj.Agent;
+import ClassObj.ObjInfor;
 import Client.ClientThread;
 import Database.DBHelper;
 import XuLi.Upload;
@@ -85,8 +88,22 @@ public class fMain extends JFrame {
 		pnTree.setLayout(new BorderLayout());
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
+		tree.addTreeSelectionListener(new TreeSelectionListener() {
+			
+			@Override
+			public void valueChanged(TreeSelectionEvent e) {
+				// TODO Auto-generated method stub
+				DefaultMutableTreeNode node =  (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
+				if(node.isLeaf()) {
+					ObjInfor o = (ObjInfor) node.getUserObject();
+					System.out.println(o.getAuthor());
+					System.out.println(o.getDate());
+					System.out.println(o);
+				}
+			}
+		});;
 		// Display list file in folder sync
-		LoadTree(root, "E:\\TestPBL4\\User\\");
+		LoadTree(root, "E:\\TestPBL4\\Client\\");
 
 		// end
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -102,7 +119,7 @@ public class fMain extends JFrame {
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
 		// Display list file in folder sync
-		LoadTree(root, "E:\\TestPBL4\\User\\");
+		LoadTree(root, "E:\\TestPBL4\\Client\\");
 
 		// end
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -116,7 +133,7 @@ public class fMain extends JFrame {
 
 	public void LoadTree(DefaultMutableTreeNode root, String path) {
 		File f = new File(path);
-		DefaultMutableTreeNode temp = new DefaultMutableTreeNode(f.getName());
+		DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new ObjInfor(f, user, "abc", "abc"));
 		if (f.isDirectory()) {
 			root.add(temp);
 			File[] fs = f.listFiles();
@@ -129,7 +146,7 @@ public class fMain extends JFrame {
 		}
 	}
 
-//	public static void main(String[] args) {
-//		new fMain();
-//	}
+	public static void main(String[] args) throws Exception {
+		new fMain("localhost", 9090, "quanghuy");
+	}
 }

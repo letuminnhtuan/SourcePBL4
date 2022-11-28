@@ -30,4 +30,10 @@ public class Agent implements Serializable {
 		this.path = user.path;
 		this.role = user.role;
 	}
+
+	@Override
+	public String toString() {
+		return "Agent [username=" + username + "]";
+	}
+	
 }
