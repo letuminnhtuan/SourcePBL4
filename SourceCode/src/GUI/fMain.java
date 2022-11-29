@@ -177,9 +177,6 @@ public class fMain extends JFrame {
 	}
 
 	public static void main(String[] args) throws Exception {
-		// new fMain("localhost", 9090, "quanghuy");
-		//new fMain("localhost", 9090, "ngochieu");
-		// new fMain("localhost", 9090, "minhtuan");
 		new fMain("localhost", 9090, "minhtuan");
 		new fMain("localhost", 9090, "quanghuy");
 		new fMain("localhost", 9090, "ngochieu");
