@@ -24,7 +24,6 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreePath;
 
 import ClassObj.Agent;
 import ClassObj.ObjInfor;
@@ -111,6 +110,7 @@ public class fMain extends JFrame {
 		pnTree.setLayout(new BorderLayout());
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
+//<<<<<<< HEAD
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
 
 			@Override
@@ -131,6 +131,10 @@ public class fMain extends JFrame {
 		// Display list file in folder sync
 		LoadTree(root, "E:\\TestPBL4\\User\\");
 
+//=======
+//		// Display list file in folder sync
+//		LoadTree(root, "E:\\TestPBL4\\User\\");
+//>>>>>>> 4bda683273464d7e1f3c2be8c7a55dcb877814a1
 		// end
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -159,12 +163,12 @@ public class fMain extends JFrame {
 
 	public void LoadTree(DefaultMutableTreeNode root, String path) {
 		File f = new File(path);
-		DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new ObjInfor(f, user, "abc", "abc"));
+		DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new ObjInfor(f,user,"ab","c"));
 		if (f.isDirectory()) {
 			root.add(temp);
 			File[] fs = f.listFiles();
 			for (File i : fs) {
-				System.out.println(i.getAbsolutePath());
+//				System.out.println(i.getAbsolutePath());
 				LoadTree(temp, i.getAbsolutePath());
 			}
 		} else {
@@ -174,7 +178,11 @@ public class fMain extends JFrame {
 
 	public static void main(String[] args) throws Exception {
 		// new fMain("localhost", 9090, "quanghuy");
-		new fMain("localhost", 9090, "ngochieu");
+		//new fMain("localhost", 9090, "ngochieu");
 		// new fMain("localhost", 9090, "minhtuan");
+		new fMain("localhost", 9090, "minhtuan");
+		new fMain("localhost", 9090, "quanghuy");
+		new fMain("localhost", 9090, "ngochieu");
+
 	}
 }
