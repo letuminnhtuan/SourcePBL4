@@ -28,9 +28,9 @@ public class ClientThread extends Thread {
 				ObjInfor obj = (ObjInfor) dataInput.readObject();
 				// Tạo file với đường dẫn tương ứng
 				XuLiTacVu xl = new XuLiTacVu();
-				xl.createFileInPath(this.user.path, obj.file.getName());
+				xl.createFileInPath(obj.author.path, obj.file.getName());
 				// Ghi file
-				File f = new File(this.user.path + "\\" + obj.file.getName());
+				File f = new File(obj.author.path + "\\" + obj.file.getName());
 				xl.readFile(f, obj.file);
 				this.fmain.tree.setModel(this.fmain.DisplayTree_());
 			}

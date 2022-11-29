@@ -3,6 +3,7 @@ package ClassObj;
 import java.io.File;
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class ObjInfor implements Serializable{
 	public File file;
 	public Agent author;

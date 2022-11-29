@@ -23,7 +23,6 @@ import ClassObj.Agent;
 import ClassObj.ObjTree;
 import Client.ClientThread;
 import Database.DBHelper;
-import XuLi.Delete;
 import XuLi.Upload;
 
 @SuppressWarnings("serial")
@@ -86,19 +85,6 @@ public class fMain extends JFrame {
 		pnTree.setLayout(new BorderLayout());
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
-//		tree.addTreeSelectionListener(new TreeSelectionListener() {
-//			
-//			@Override
-//			public void valueChanged(TreeSelectionEvent e) {
-//				// TODO Auto-generated method stub
-//				DefaultMutableTreeNode node =(DefaultMutableTreeNode) e.getPath().getLastPathComponent();
-//				if(node.isLeaf()) {
-//					ObjTree o = (ObjTree) node.getUserObject();
-//					System.out.println(o.f.getAbsolutePath());
-//				}
-//			}
-//			
-//		});;
 		// Display list file in folder sync
 		LoadTree(root, "E:\\TestPBL4\\User\\");
 		// end
@@ -144,5 +130,7 @@ public class fMain extends JFrame {
 
 	public static void main(String[] args) throws Exception {
 		new fMain("localhost", 9090, "minhtuan");
+		new fMain("localhost", 9090, "quanghuy");
+		new fMain("localhost", 9090, "ngochieu");
 	}
 }
