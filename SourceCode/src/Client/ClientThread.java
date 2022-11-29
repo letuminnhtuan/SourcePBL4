@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-import javax.swing.JTextArea;
-
 import ClassObj.Agent;
 import ClassObj.ObjInfor;
 import GUI.fMain;

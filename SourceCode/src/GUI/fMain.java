@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -12,6 +14,7 @@ import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -19,7 +22,9 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 
 import ClassObj.Agent;
 import ClassObj.ObjInfor;
@@ -40,7 +45,8 @@ public class fMain extends JFrame {
 	public ObjectInputStream dataInput;
 	public ObjectOutputStream dataOutput;
 	public Agent user;
-
+	public DefaultMutableTreeNode	selectedNode= null;
+	
 	public fMain(String host, int port, String username) throws Exception {
 		DBHelper db = new DBHelper();
 		this.user = db.getAgentByUsername(username);
@@ -72,6 +78,24 @@ public class fMain extends JFrame {
 		btnUpload = new JButton("Upload");
 		btnUpload.addActionListener(new Upload(this));
 		btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+				DefaultMutableTreeNode select = selectedNode;
+				int result = JOptionPane.showConfirmDialog(null,"Sure? You want to exit?", "Swing Tester",
+			               JOptionPane.YES_NO_OPTION,
+			               JOptionPane.QUESTION_MESSAGE);	// 0 = yes ,  1= no
+				if(result ==0) {
+					ObjInfor o = (ObjInfor) select.getUserObject();
+					o.getFile().delete();
+					model.removeNodeFromParent(select);
+					model.reload();
+				}
+			}
+		});
 		pnlMenu.add(btnUpload);
 		pnlMenu.add(btnDelete);
 		pnlRight.add(pnlMenu, BorderLayout.NORTH);
@@ -88,23 +112,24 @@ public class fMain extends JFrame {
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
-			
+
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
 				// TODO Auto-generated method stub
-				DefaultMutableTreeNode node =(DefaultMutableTreeNode) e.getPath().getLastPathComponent();
-				if(node.isLeaf()) {
-					ObjInfor o = (ObjInfor) node.getUserObject();
+				selectedNode = (DefaultMutableTreeNode) e.getPath().getLastPathComponent();
+				if (selectedNode.isLeaf()) {
+					ObjInfor o = (ObjInfor) selectedNode.getUserObject();
 					System.out.println(o.getDate());
 					System.out.println(o.getFile());
 					System.out.println(o);
 				}
 			}
-			
-		});;
+
+		});
+		;
 
 		// Display list file in folder sync
-		LoadTree(root, "E:\\TestPBL4\\Client\\");
+		LoadTree(root, "E:\\TestPBL4\\User\\");
 
 		// end
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -120,7 +145,7 @@ public class fMain extends JFrame {
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
 		// Display list file in folder sync
-		LoadTree(root, "E:\\TestPBL4\\Client\\");
+		LoadTree(root, "E:\\TestPBL4\\User\\");
 
 		// end
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -148,6 +173,8 @@ public class fMain extends JFrame {
 	}
 
 	public static void main(String[] args) throws Exception {
-		new fMain("localhost", 9090, "quanghuy");
+		// new fMain("localhost", 9090, "quanghuy");
+		new fMain("localhost", 9090, "ngochieu");
+		// new fMain("localhost", 9090, "minhtuan");
 	}
 }
