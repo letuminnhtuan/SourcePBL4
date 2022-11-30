@@ -112,24 +112,30 @@ public class fServer extends JFrame implements ActionListener {
 		}
 	}
 
+	public void ReloadTable() {
+
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
 		if (button.equals("ADD USER")) {
+			fCRUDNV f = new fCRUDNV("", "add");
+			f.setLocationRelativeTo(this);
+		} else if (button.equals("EDIT USER")) {
 			int index;
 			if ((index = this.table.getSelectedRow()) != -1) {
 				DefaultTableModel model = (DefaultTableModel) this.table.getModel();
-				System.out.println(model.getValueAt(index, 0));
-				;
+				String username = model.getValueAt(index, 0).toString();
+				fCRUDNV f = new fCRUDNV(username, "edit");
+				f.setLocationRelativeTo(this);
 			}
-		} else if (button.equals("EDIT USER")) {
-			System.out.println("edit");
 		} else if (button.equals("DELETE USER")) {
 			int index;
 			if ((index = this.table.getSelectedRow()) != -1) {
 				DefaultTableModel model = (DefaultTableModel) this.table.getModel();
 				XuLiServer xl = new XuLiServer();
-				xl.DeleteUser(button);
+				xl.DeleteUser(model.getValueAt(index, 0).toString());
 			}
 		} else if (button.equals("SEARCH")) {
 			System.out.println("search");
