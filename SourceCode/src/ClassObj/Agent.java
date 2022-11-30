@@ -21,6 +21,14 @@ public class Agent implements Serializable {
 		this.role = role;
 	}
 
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
 	public Agent(Agent user) {
 		this.name = user.name;
 		this.username = user.username;

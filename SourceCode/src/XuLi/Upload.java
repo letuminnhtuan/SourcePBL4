@@ -22,6 +22,11 @@ public class Upload implements ActionListener {
 			JFileChooser fileChoose = new JFileChooser();
 			fileChoose.showDialog(this.f, "Open");
 			File f = fileChoose.getSelectedFile();
+			if(this.f.result.length >3) {
+				this.f.user.path = this.f.user.path + "//"+this.f.result[this.f.result.length -1];
+			}
+			
+					
 			ObjInfor obj = new ObjInfor(f, this.f.user, "now", "upload");
 			this.f.dataOutput.writeObject(obj);
 //			this.f.tree.setModel(this.f.DisplayTree_());

@@ -38,6 +38,7 @@ public class fMain extends JFrame {
 	public JPanel pnlRender;
 	public JButton btnUpload;
 	public JButton btnDelete;
+	public JButton btnCreFol;
 	public Container con;
 	public JPanel pnTree;
 	public Socket socket;
@@ -45,7 +46,8 @@ public class fMain extends JFrame {
 	public ObjectOutputStream dataOutput;
 	public Agent user;
 	public DefaultMutableTreeNode	selectedNode= null;
-	
+	public String Folder_File;
+	public String[] result ;
 	public fMain(String host, int port, String username) throws Exception {
 		DBHelper db = new DBHelper();
 		this.user = db.getAgentByUsername(username);
@@ -73,7 +75,7 @@ public class fMain extends JFrame {
 		pnlRight.add(this.pnlRender, BorderLayout.CENTER);
 		JPanel pnlMenu = new JPanel();
 		pnlMenu.setBackground(Color.WHITE);
-		pnlMenu.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 5));
+		pnlMenu.setLayout(new FlowLayout(FlowLayout.LEFT, 3, 5));
 		btnUpload = new JButton("Upload");
 		btnUpload.addActionListener(new Upload(this));
 		btnDelete = new JButton("Delete");
@@ -95,8 +97,25 @@ public class fMain extends JFrame {
 				}
 			}
 		});
+		btnCreFol = new JButton("Create Folder");
+		btnCreFol.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String name=JOptionPane.showInputDialog(null,"Enter Name");      
+				if((name.contains(" ") || name.contains(""))) {
+					System.out.print(name);
+					File theDir = new File(user.getPath()+"\\"+name);
+					if (!theDir.exists()){
+					    theDir.mkdirs();
+					}
+				}
+			}
+		});
 		pnlMenu.add(btnUpload);
 		pnlMenu.add(btnDelete);
+		pnlMenu.add(btnCreFol);
 		pnlRight.add(pnlMenu, BorderLayout.NORTH);
 
 		JSplitPane sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pnTree, pnlRight);
@@ -117,12 +136,15 @@ public class fMain extends JFrame {
 			public void valueChanged(TreeSelectionEvent e) {
 				// TODO Auto-generated method stub
 				selectedNode = (DefaultMutableTreeNode) e.getPath().getLastPathComponent();
-				if (selectedNode.isLeaf()) {
-					ObjInfor o = (ObjInfor) selectedNode.getUserObject();
-					System.out.println(o.getDate());
-					System.out.println(o.getFile());
-					System.out.println(o);
-				}
+				String str = e.getPath().toString();
+				str = str.substring(1, str.length()-1);
+				result = str.split(", ");
+//				if (selectedNode.isLeaf()) {
+//					ObjInfor o = (ObjInfor) selectedNode.getUserObject();
+//					System.out.println(o.getDate());
+//					System.out.println(o.getFile());
+//					System.out.println(o);
+//				}
 			}
 
 		});
@@ -177,8 +199,8 @@ public class fMain extends JFrame {
 	}
 
 	public static void main(String[] args) throws Exception {
-		new fMain("localhost", 9090, "minhtuan");
-		new fMain("localhost", 9090, "quanghuy");
+	//	new fMain("localhost", 9090, "minhtuan");
+	//	new fMain("localhost", 9090, "quanghuy");
 		new fMain("localhost", 9090, "ngochieu");
 
 	}
