@@ -104,6 +104,7 @@ public class fServer extends JFrame implements ActionListener {
 	}
 
 	public void LoadTable() {
+		DeleteAllRows();
 		DefaultTableModel model = (DefaultTableModel) this.table.getModel();
 		XuLiServer xl = new XuLiServer();
 		for (Agent i : xl.getAllAgent()) {
@@ -112,8 +113,11 @@ public class fServer extends JFrame implements ActionListener {
 		}
 	}
 
-	public void ReloadTable() {
-
+	public void DeleteAllRows() {
+		DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+		while(model.getRowCount() != 0) {
+			model.removeRow(0);
+		}
 	}
 
 	@Override
@@ -137,8 +141,9 @@ public class fServer extends JFrame implements ActionListener {
 				XuLiServer xl = new XuLiServer();
 				xl.DeleteUser(model.getValueAt(index, 0).toString());
 			}
+			LoadTable();
 		} else if (button.equals("SEARCH")) {
-			System.out.println("search");
+			DeleteAllRows();
 		}
 	}
 }

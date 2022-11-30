@@ -12,16 +12,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ClassObj.Agent;
 import XuLi.XuLiServer;
 import javax.swing.JPasswordField;
-import javax.swing.JCheckBox;
 
 public class fCRUDNV extends JFrame implements ActionListener {
-
+	
 	public JPanel contentPane;
 	public JTextField txtName;
 	public JTextField txtUsername;
@@ -37,8 +34,8 @@ public class fCRUDNV extends JFrame implements ActionListener {
 	public JComboBox cbbRole;
 	public String username;
 	public String type;
-	private JPasswordField txtPassword;
-	private JButton btnShow;
+	public JPasswordField txtPassword;
+	public JButton btnShow;
 
 	public fCRUDNV(String username, String type) {
 		this.username = username;
@@ -140,7 +137,7 @@ public class fCRUDNV extends JFrame implements ActionListener {
 		txtPassword = new JPasswordField();
 		txtPassword.setBounds(159, 149, 230, 38);
 		contentPane.add(txtPassword);
-		
+
 		btnShow = new JButton("S");
 		btnShow.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnShow.setBounds(399, 149, 38, 38);
