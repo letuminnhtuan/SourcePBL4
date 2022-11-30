@@ -2,6 +2,8 @@ package GUI;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import ClassObj.Agent;
 import XuLi.XuLiServer;
 
-public class fServer extends JFrame {
+public class fServer extends JFrame implements ActionListener {
 
 	public JPanel contentPane;
 	public JTable table;
@@ -27,6 +29,7 @@ public class fServer extends JFrame {
 	public JButton btnEdit;
 	public JButton btnDelete;
 	public JButton btnSearch;
+
 	/**
 	 * Launch the application.
 	 */
@@ -74,15 +77,18 @@ public class fServer extends JFrame {
 		scrollPane.setViewportView(table);
 
 		btnAdd = new JButton("ADD USER");
-		btnAdd.setBounds(282, 11, 126, 31);
+		btnAdd.setBounds(10, 11, 126, 31);
+		btnAdd.addActionListener(this);
 		contentPane.add(btnAdd);
 
 		btnEdit = new JButton("EDIT USER");
 		btnEdit.setBounds(146, 11, 126, 31);
+		btnEdit.addActionListener(this);
 		contentPane.add(btnEdit);
 
 		btnDelete = new JButton("DELETE USER");
-		btnDelete.setBounds(10, 11, 126, 31);
+		btnDelete.setBounds(282, 12, 126, 31);
+		btnDelete.addActionListener(this);
 		contentPane.add(btnDelete);
 
 		txtSearch = new JTextField();
@@ -92,6 +98,7 @@ public class fServer extends JFrame {
 
 		btnSearch = new JButton("SEARCH");
 		btnSearch.setBounds(965, 11, 126, 31);
+		btnSearch.addActionListener(this);
 		contentPane.add(btnSearch);
 		LoadTable();
 	}
@@ -102,6 +109,30 @@ public class fServer extends JFrame {
 		for (Agent i : xl.getAllAgent()) {
 			String[] data = { i.username, i.password, i.name, i.role, i.path, i.host, i.port + "" };
 			model.addRow(data);
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String button = e.getActionCommand();
+		if (button.equals("ADD USER")) {
+			int index;
+			if ((index = this.table.getSelectedRow()) != -1) {
+				DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+				System.out.println(model.getValueAt(index, 0));
+				;
+			}
+		} else if (button.equals("EDIT USER")) {
+			System.out.println("edit");
+		} else if (button.equals("DELETE USER")) {
+			int index;
+			if ((index = this.table.getSelectedRow()) != -1) {
+				DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+				XuLiServer xl = new XuLiServer();
+				xl.DeleteUser(button);
+			}
+		} else if (button.equals("SEARCH")) {
+			System.out.println("search");
 		}
 	}
 }

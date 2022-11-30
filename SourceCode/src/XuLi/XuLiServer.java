@@ -10,4 +10,8 @@ public class XuLiServer {
 		DBHelper db = new DBHelper();
 		return db.getAllAgent();
 	}
+	public void DeleteUser(String username) {
+		DBHelper db = new DBHelper();
+		db.DeleteUser(username);
+	}
 }
