@@ -18,7 +18,9 @@ import XuLi.XuLiServer;
 import javax.swing.JPasswordField;
 
 public class fCRUDNV extends JFrame implements ActionListener {
-	
+	public interface Load{
+		void LoadTable();
+	}
 	public JPanel contentPane;
 	public JTextField txtName;
 	public JTextField txtUsername;
@@ -31,11 +33,12 @@ public class fCRUDNV extends JFrame implements ActionListener {
 	public JLabel lblPath;
 	public JTextField txtPath;
 	public JLabel lblRole;
-	public JComboBox cbbRole;
+	public JComboBox<String> cbbRole;
 	public String username;
 	public String type;
 	public JPasswordField txtPassword;
 	public JButton btnShow;
+	public Load load;
 
 	public fCRUDNV(String username, String type) {
 		this.username = username;
@@ -116,10 +119,11 @@ public class fCRUDNV extends JFrame implements ActionListener {
 		lblRole.setBounds(43, 338, 106, 38);
 		contentPane.add(lblRole);
 
-		cbbRole = new JComboBox();
-		cbbRole.setModel(new DefaultComboBoxModel(new String[] { "admin", "server" }));
+		cbbRole = new JComboBox<String>();
+		cbbRole.setModel(new DefaultComboBoxModel<String>(new String[] { "admin", "server" }));
 		cbbRole.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		cbbRole.setBounds(159, 338, 278, 38);
+		cbbRole.setSelectedIndex(-1);
 		contentPane.add(cbbRole);
 
 		JButton btnOK = new JButton("OK");
@@ -135,6 +139,7 @@ public class fCRUDNV extends JFrame implements ActionListener {
 		contentPane.add(btnCancle);
 
 		txtPassword = new JPasswordField();
+		txtPassword.setEchoChar('*');
 		txtPassword.setBounds(159, 149, 230, 38);
 		contentPane.add(txtPassword);
 
@@ -161,12 +166,19 @@ public class fCRUDNV extends JFrame implements ActionListener {
 			this.cbbRole.setSelectedIndex(index);
 		}
 	}
-
+	public void ReloadGUI() {
+		this.txtName.setText("");
+		this.txtUsername.setText("");
+		this.txtPassword.setText("");
+		this.txtHost.setText("");
+		this.txtPath.setText("");
+		this.txtPort.setText("");
+		this.cbbRole.setSelectedIndex(-1);
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
 		if (button.equals("OK")) {
-			System.out.println("asd");
 			XuLiServer xl = new XuLiServer();
 			String name = this.txtName.getText();
 			String username = this.txtUsername.getText();
@@ -178,9 +190,11 @@ public class fCRUDNV extends JFrame implements ActionListener {
 			Agent user = new Agent(name, username, password, host, Integer.parseInt(port), path, roler);
 			if (this.type.equals("add")) {
 				xl.AddUser(user);
+				ReloadGUI();
 			} else if (this.type.equals("edit")) {
 				xl.UpdateUser(user);
 			}
+			this.load.LoadTable();
 		} else if (button.equals("Cancle")) {
 			this.dispose();
 		} else if (button.equals("S")) {

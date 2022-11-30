@@ -18,9 +18,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import ClassObj.Agent;
+import GUI.fCRUDNV.Load;
 import XuLi.XuLiServer;
 
-public class fServer extends JFrame implements ActionListener {
+public class fServer extends JFrame implements ActionListener, Load{
 
 	public JPanel contentPane;
 	public JTable table;
@@ -126,6 +127,7 @@ public class fServer extends JFrame implements ActionListener {
 		if (button.equals("ADD USER")) {
 			fCRUDNV f = new fCRUDNV("", "add");
 			f.setLocationRelativeTo(this);
+			f.load = this;
 		} else if (button.equals("EDIT USER")) {
 			int index;
 			if ((index = this.table.getSelectedRow()) != -1) {
@@ -133,6 +135,7 @@ public class fServer extends JFrame implements ActionListener {
 				String username = model.getValueAt(index, 0).toString();
 				fCRUDNV f = new fCRUDNV(username, "edit");
 				f.setLocationRelativeTo(this);
+				f.load = this;
 			}
 		} else if (button.equals("DELETE USER")) {
 			int index;
