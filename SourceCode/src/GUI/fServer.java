@@ -3,9 +3,7 @@ package GUI;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -23,7 +21,6 @@ import javax.swing.table.DefaultTableModel;
 import ClassObj.Agent;
 import Database.DBHelper;
 import GUI.fCRUDNV.Load;
-import Server.Server;
 import Server.ServerThread;
 import XuLi.XuLiServer;
 
@@ -39,7 +36,6 @@ public class fServer extends JFrame implements ActionListener, Load {
 	public Agent user;
 	public ServerSocket serverSocket;
 	Vector<ServerThread> clients = new Vector<ServerThread>();
-	private JButton btnRunServer;
 
 	public fServer(String username) {
 		DBHelper db = new DBHelper();
@@ -87,19 +83,14 @@ public class fServer extends JFrame implements ActionListener, Load {
 		contentPane.add(btnDelete);
 
 		txtSearch = new JTextField();
-		txtSearch.setBounds(617, 11, 202, 31);
+		txtSearch.setBounds(753, 11, 202, 31);
 		contentPane.add(txtSearch);
 		txtSearch.setColumns(10);
 
 		btnSearch = new JButton("SEARCH");
-		btnSearch.setBounds(829, 11, 126, 31);
+		btnSearch.setBounds(965, 11, 126, 31);
 		btnSearch.addActionListener(this);
 		contentPane.add(btnSearch);
-
-		btnRunServer = new JButton("RUN SERVER");
-		btnRunServer.setBounds(965, 11, 126, 31);
-		btnRunServer.addActionListener(this);
-		contentPane.add(btnRunServer);
 		LoadTable();
 	}
 
@@ -124,25 +115,6 @@ public class fServer extends JFrame implements ActionListener, Load {
 					model.addRow(data);
 				}
 			}
-		}
-	}
-
-	public void RunServer() {
-		try {
-			serverSocket = new ServerSocket(this.user.port);
-			System.out.println("Server is running........");
-			while (true) {
-				Socket socket = serverSocket.accept();
-				ServerThread thr = new ServerThread(socket, clients);
-				clients.add(thr);
-				thr.start();
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
@@ -179,13 +151,6 @@ public class fServer extends JFrame implements ActionListener, Load {
 			LoadTable();
 		} else if (button.equals("SEARCH")) {
 			LoadTable();
-		} else if (button.equals("RUN SERVER")) {
-			try {
-				new Server(this.user.port);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 		}
 	}
 }

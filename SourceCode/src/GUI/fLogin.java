@@ -1,26 +1,21 @@
 package GUI;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import ClassObj.Agent;
-import Database.DBHelper;
-
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import ClassObj.Agent;
+import Database.DBHelper;
 
 public class fLogin extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -28,9 +23,6 @@ public class fLogin extends JFrame implements ActionListener {
 	public JTextField txtUsername;
 	public JPasswordField txtPassword;
 	public JButton btnLogin;
-	public Socket socket;
-	public ObjectInputStream dataInput;
-	public ObjectOutputStream dataOutput;
 	public Agent user;
 
 	/**
@@ -67,6 +59,7 @@ public class fLogin extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public fLogin() {
+		setResizable(false);
 		setTitle("Log in");
 		setVisible(true);
 		setLocationRelativeTo(null);

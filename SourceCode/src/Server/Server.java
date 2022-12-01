@@ -4,7 +4,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
-public class Server extends Thread{
+public class Server{
 	public ServerSocket serverSocket;
 	Vector<ServerThread> clients = new Vector<ServerThread>();
 
@@ -19,12 +19,12 @@ public class Server extends Thread{
 		}
 	}
 
-	public static void main(String[] args) {
-		try {
-			new Server(9090);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.err.println(e);
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			new Server(9090);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			System.err.println(e);
+//		}
+//	}
 }
