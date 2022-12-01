@@ -57,7 +57,7 @@ public class fMain extends JFrame {
 		new ClientThread(dataInput, this.user, this).start();
 		SetGUI();
 		this.setSize(new Dimension(1000, 700));
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setVisible(true);

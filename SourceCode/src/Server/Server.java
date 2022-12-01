@@ -19,5 +19,12 @@ public class Server extends Thread{
 		}
 	}
 
-	
+	public static void main(String[] args) {
+		try {
+			new Server(9090);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.err.println(e);
+		}
+	}
 }
