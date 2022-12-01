@@ -48,11 +48,10 @@ public class fMain extends JFrame {
 	public DefaultMutableTreeNode	selectedNode= null;
 	public String Folder_File;
 	public String[] result ;
-	public fMain(String host, int port, String username) throws Exception {
+	public fMain(String username) throws Exception {
 		DBHelper db = new DBHelper();
-		this.user = db.getAgentByUsername(username);
-		this.user = new Agent(user);
-		socket = new Socket(host, port);
+		this.user = new Agent(db.getAgentByUsername(username));
+		socket = new Socket(user.host, user.port);
 		dataOutput = new ObjectOutputStream(socket.getOutputStream());
 		dataInput = new ObjectInputStream(socket.getInputStream());
 		new ClientThread(dataInput, this.user, this).start();
@@ -199,9 +198,6 @@ public class fMain extends JFrame {
 	}
 
 	public static void main(String[] args) throws Exception {
-	//	new fMain("localhost", 9090, "minhtuan");
-	//	new fMain("localhost", 9090, "quanghuy");
-		new fMain("localhost", 9090, "ngochieu");
 
 	}
 }

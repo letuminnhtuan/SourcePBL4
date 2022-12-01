@@ -1,7 +1,5 @@
 package GUI;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -32,31 +30,34 @@ public class fLogin extends JFrame implements ActionListener {
 	public ObjectInputStream dataInput;
 	public ObjectOutputStream dataOutput;
 	public Agent user;
+
 	/**
 	 * Launch the application.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		// check Login
-		String username = this.txtUsername.getText();
-		String password = String.valueOf(this.txtPassword.getPassword());
-		if (username.length() == 0) {
+		try {
+			String username = this.txtUsername.getText();
+			String password = String.valueOf(this.txtPassword.getPassword());
+			if (username.length() == 0) {
 
-		} else if (password.length() == 0) {
+			} else if (password.length() == 0) {
 
-		} else {
-			DBHelper db = new DBHelper();
-			if(db.checkLogin(username, password)){
-				this.txtUsername.setText("");
-				this.txtPassword.setText("");
-				try {
-					new fMain("localhost", 9090, username);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+			} else {
+				DBHelper db = new DBHelper();
+				if (db.checkLogin(username, password)) {
+					this.txtUsername.setText("");
+					this.txtPassword.setText("");
+					if (db.getAgentByUsername(username).role.equals("admin")) {
+						new fMain(username);
+					} else {
+						new fServer(username);
+					}
 				}
 			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 
@@ -103,9 +104,8 @@ public class fLogin extends JFrame implements ActionListener {
 		btnLogin.addActionListener(this);
 		contentPane.add(btnLogin);
 	}
+
 	public static void main(String[] args) {
-	//	fLogin f1 = new fLogin();
-//		fLogin f2 = new fLogin();
-		fLogin f3 = new fLogin();
+		new fLogin();
 	}
 }

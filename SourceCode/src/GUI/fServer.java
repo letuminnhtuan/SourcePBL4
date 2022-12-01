@@ -1,6 +1,5 @@
 package GUI;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,10 +17,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import ClassObj.Agent;
+import Database.DBHelper;
 import GUI.fCRUDNV.Load;
 import XuLi.XuLiServer;
 
-public class fServer extends JFrame implements ActionListener, Load{
+public class fServer extends JFrame implements ActionListener, Load {
 
 	public JPanel contentPane;
 	public JTable table;
@@ -30,30 +30,15 @@ public class fServer extends JFrame implements ActionListener, Load{
 	public JButton btnEdit;
 	public JButton btnDelete;
 	public JButton btnSearch;
+	public Agent user;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					fServer frame = new fServer();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public fServer() {
+	public fServer(String username) {
+		DBHelper db = new DBHelper();
+		this.user = new Agent(db.getAgentByUsername(username));
 		setVisible(true);
 		setTitle("Server");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1117, 588);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -116,7 +101,7 @@ public class fServer extends JFrame implements ActionListener, Load{
 
 	public void DeleteAllRows() {
 		DefaultTableModel model = (DefaultTableModel) this.table.getModel();
-		while(model.getRowCount() != 0) {
+		while (model.getRowCount() != 0) {
 			model.removeRow(0);
 		}
 	}
