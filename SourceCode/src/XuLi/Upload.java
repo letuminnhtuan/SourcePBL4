@@ -22,13 +22,15 @@ public class Upload implements ActionListener {
 			JFileChooser fileChoose = new JFileChooser();
 			fileChoose.showDialog(this.f, "Open");
 			File f = fileChoose.getSelectedFile();
-			if(this.f.result.length >3) {
+			String pathOld = this.f.user.path;
+			if(this.f.result.length >3 && (!this.f.result[this.f.result.length -1].contains("."))) {
 				this.f.user.path = this.f.user.path + "//"+this.f.result[this.f.result.length -1];
 			}
 			
 					
 			ObjInfor obj = new ObjInfor(f, this.f.user, "now", "upload");
 			this.f.dataOutput.writeObject(obj);
+			this.f.user.path = pathOld;
 //			this.f.tree.setModel(this.f.DisplayTree_());
 		} catch (Exception e1) {
 			e1.printStackTrace();
