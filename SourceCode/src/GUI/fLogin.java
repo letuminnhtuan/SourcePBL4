@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +23,7 @@ import java.net.Socket;
 import javax.swing.JButton;
 
 public class fLogin extends JFrame implements ActionListener {
-
+	private static final long serialVersionUID = 1L;
 	public JPanel contentPane;
 	public JTextField txtUsername;
 	public JPasswordField txtPassword;
@@ -50,7 +52,7 @@ public class fLogin extends JFrame implements ActionListener {
 					this.txtPassword.setText("");
 					if (db.getAgentByUsername(username).role.equals("admin")) {
 						new fMain(username);
-					} else {
+					} else if (db.getAgentByUsername(username).role.equals("server")) {
 						new fServer(username);
 					}
 				}
@@ -65,6 +67,7 @@ public class fLogin extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public fLogin() {
+		setTitle("Log in");
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,6 +109,14 @@ public class fLogin extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new fLogin();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					new fLogin();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
