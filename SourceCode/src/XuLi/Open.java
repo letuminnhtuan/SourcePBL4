@@ -13,8 +13,7 @@ public class Open implements ActionListener {
 	public fMain f;
 
 	public Open(fMain f) {
-		this.f = f;
-	}
+		this.f = f;}
 
 	public void actionPerformed(ActionEvent e) {
 		try {
