@@ -3,18 +3,27 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -24,6 +33,7 @@ import ClassObj.Agent;
 import Client.ClientThread;
 import Database.DBHelper;
 import XuLi.Upload;
+import XuLi.XuLiTacVu;
 
 @SuppressWarnings("serial")
 public class fMain extends JFrame {
@@ -32,12 +42,14 @@ public class fMain extends JFrame {
 	public JPanel pnlRender;
 	public JButton btnUpload;
 	public JButton btnDelete;
+	public JButton btnOpen;
 	public Container con;
 	public JPanel pnTree;
 	public Socket socket;
 	public ObjectInputStream dataInput;
 	public ObjectOutputStream dataOutput;
 	public Agent user;
+	String jtreeVal;
 
 	public fMain(String host, int port, String username) throws Exception {
 		DBHelper db = new DBHelper();
@@ -53,13 +65,16 @@ public class fMain extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setVisible(true);
+	
 	}
 
 	public void SetGUI() {
 		this.setTitle(this.user.name);
 		con = getContentPane();
 		con.setLayout(new BorderLayout());
+		
 		DisplayTree();
+		
 		JPanel pnlRight = new JPanel();
 		pnlRight.setLayout(new BorderLayout(2, 2));
 		this.pnlRender = new JPanel();
@@ -70,8 +85,33 @@ public class fMain extends JFrame {
 		btnUpload = new JButton("Upload");
 		btnUpload.addActionListener(new Upload(this));
 		btnDelete = new JButton("Delete");
+		btnOpen = new JButton("Open");
+		
+		btnOpen.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					File file = new File(jtreeVal);
+					if (file.exists()) {
+						if (Desktop.isDesktopSupported()) {
+							Desktop.getDesktop().open(file);
+						} else {
+							JOptionPane.showMessageDialog(pnlRight, "no support");
+						}
+					} else {
+						JOptionPane.showMessageDialog(pnlRight, "file does not exis or is a directory");
+					}
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		});
+		
 		pnlMenu.add(btnUpload);
 		pnlMenu.add(btnDelete);
+		pnlMenu.add(btnOpen);
 		pnlRight.add(pnlMenu, BorderLayout.NORTH);
 
 		JSplitPane sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pnTree, pnlRight);
@@ -86,7 +126,7 @@ public class fMain extends JFrame {
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
 		// Display list file in folder sync
-		LoadTree(root, "E:\\TestPBL4\\User\\");
+		LoadTree(root, "D:\\TestPBL4\\User\\");
 
 		// end
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -94,6 +134,45 @@ public class fMain extends JFrame {
 		pnTree.add(sc, BorderLayout.CENTER);
 
 		pnTree.setPreferredSize(new Dimension(300, 0));
+		
+		tree.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				jtreeVal = tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ", "\\");
+				String path = "D:\\TestPBL4\\User\\";
+				String[] words = jtreeVal.split("\\\\");
+				if (words.length >= 2) {
+					jtreeVal = path + words[words.length - 2] + "\\" + words[words.length - 1];
+					
+				}
+			}
+		});
 	}
 
 	public TreeModel DisplayTree_() {
@@ -102,7 +181,7 @@ public class fMain extends JFrame {
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
 		// Display list file in folder sync
-		LoadTree(root, "E:\\TestPBL4\\User\\");
+		LoadTree(root, "D:\\TestPBL4\\User\\");
 
 		// end
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
