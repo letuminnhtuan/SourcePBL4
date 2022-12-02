@@ -19,15 +19,13 @@ public class Upload implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			JFileChooser fileChoose = new JFileChooser();
+			JFileChooser fileChoose = new JFileChooser(new File("C:"));
 			fileChoose.showDialog(this.f, "Open");
 			File f = fileChoose.getSelectedFile();
 			String pathOld = this.f.user.path;
-			if(this.f.result.length >3 && (!this.f.result[this.f.result.length -1].contains("."))) {
-				this.f.user.path = this.f.user.path + "//"+this.f.result[this.f.result.length -1];
+			if (this.f.result.length > 3 && (!this.f.result[this.f.result.length - 1].contains("."))) {
+				this.f.user.path = this.f.user.path + "//" + this.f.result[this.f.result.length - 1];
 			}
-			
-					
 			ObjInfor obj = new ObjInfor(f, this.f.user, "now", "upload");
 			this.f.dataOutput.writeObject(obj);
 			this.f.user.path = pathOld;
