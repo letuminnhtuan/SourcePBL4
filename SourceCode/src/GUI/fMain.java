@@ -96,6 +96,31 @@ public class fMain extends JFrame {
 				}
 			}
 		});
+		
+		btnOpen = new JButton("Open");
+		
+		btnOpen.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					File file = new File(jtreeVal);
+					if (file.exists()) {
+						if (Desktop.isDesktopSupported()) {
+							Desktop.getDesktop().open(file);
+						} else {
+							JOptionPane.showMessageDialog(pnlRight, "no support");
+						}
+					} else {
+						JOptionPane.showMessageDialog(pnlRight, "file does not exis or is a directory");
+					}
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+			}
+		});
+		
 		btnCreFol = new JButton("Create Folder");
 		btnCreFol.addActionListener(new ActionListener() {
 			
@@ -114,6 +139,7 @@ public class fMain extends JFrame {
 		});
 		pnlMenu.add(btnUpload);
 		pnlMenu.add(btnDelete);
+		pnlMenu.add(btnOpen);
 		pnlMenu.add(btnCreFol);
 		pnlRight.add(pnlMenu, BorderLayout.NORTH);
 
@@ -162,6 +188,46 @@ public class fMain extends JFrame {
 		pnTree.add(sc, BorderLayout.CENTER);
 
 		pnTree.setPreferredSize(new Dimension(300, 0));
+		
+		tree.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				jtreeVal = tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ", "\\");
+				String path = "D:\\TestPBL4\\User\\";
+				String[] words = jtreeVal.split("\\\\");
+				if (words.length >= 2) {
+					jtreeVal = path + words[words.length - 2] + "\\" + words[words.length - 1];
+					
+				}
+			}
+		});
+		
 	}
 
 	public TreeModel DisplayTree_() {
