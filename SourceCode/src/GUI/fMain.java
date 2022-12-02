@@ -48,6 +48,7 @@ public class fMain extends JFrame {
 	public DefaultMutableTreeNode	selectedNode= null;
 	public String Folder_File;
 	public String[] result ;
+	String jtreeVal;
 	public fMain(String username) throws Exception {
 		DBHelper db = new DBHelper();
 		this.user = new Agent(db.getAgentByUsername(username));
