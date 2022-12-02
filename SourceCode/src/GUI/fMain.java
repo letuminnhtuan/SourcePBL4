@@ -3,10 +3,13 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -48,7 +51,8 @@ public class fMain extends JFrame {
 	public DefaultMutableTreeNode	selectedNode= null;
 	public String Folder_File;
 	public String[] result ;
-	String jtreeVal;
+	public String jtreeVal;
+	public JButton btnOpen;
 	public fMain(String username) throws Exception {
 		DBHelper db = new DBHelper();
 		this.user = new Agent(db.getAgentByUsername(username));
@@ -98,7 +102,7 @@ public class fMain extends JFrame {
 			}
 		});
 		
-		btnOpen = new JButton("Open");
+		 btnOpen = new JButton("Open");
 		
 		btnOpen.addActionListener(new ActionListener() {
 			
@@ -130,12 +134,12 @@ public class fMain extends JFrame {
 				// TODO Auto-generated method stub
 				String name=JOptionPane.showInputDialog(null,"Enter Name");      
 				if((name.contains(" ") || name.contains(""))) {
-					System.out.print(name);
 					File theDir = new File(user.getPath()+"\\"+name);
 					if (!theDir.exists()){
 					    theDir.mkdirs();
 					}
 				}
+				tree.setModel(DisplayTree_());
 			}
 		});
 		pnlMenu.add(btnUpload);
@@ -190,44 +194,46 @@ public class fMain extends JFrame {
 
 		pnTree.setPreferredSize(new Dimension(300, 0));
 		
-		tree.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+		tree.addMouseListener((MouseListener) new MouseListener() {
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				jtreeVal = tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ", "\\");
 				// sửa lại path nha
-				String path = "D:\\TestPBL4\\User\\";
+				String path = "E:\\TestPBL4\\User\\";
 				String[] words = jtreeVal.split("\\\\");
 				if (words.length >= 2) {
 					jtreeVal = path + words[words.length - 2] + "\\" + words[words.length - 1];
 					
 				}
 			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+
 		});
 		
 	}
