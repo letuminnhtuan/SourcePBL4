@@ -219,6 +219,7 @@ public class fMain extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				jtreeVal = tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ", "\\");
+				// sửa lại path nha
 				String path = "D:\\TestPBL4\\User\\";
 				String[] words = jtreeVal.split("\\\\");
 				if (words.length >= 2) {
