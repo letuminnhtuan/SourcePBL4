@@ -26,10 +26,6 @@ public class fCRUDNV extends JFrame implements ActionListener {
 		void LoadTable();
 	}
 
-	public interface Display {
-		void AddNode(File f);
-	}
-
 	public JPanel contentPane;
 	public JTextField txtName;
 	public JTextField txtUsername;

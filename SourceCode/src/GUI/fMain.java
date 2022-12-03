@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Enumeration;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,22 +27,25 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
 
 import ClassObj.Agent;
 import ClassObj.ObjInfor;
 import Client.ClientThread;
 import Database.DBHelper;
-import GUI.fCRUDNV.Display;
 import XuLi.Upload;
 
-public class fMain extends JFrame implements Display {
+public class fMain extends JFrame {
 	public DefaultMutableTreeNode root = null;
 	public JTree tree;
 	public JPanel pnlRender;
 	public JButton btnUpload;
 	public JButton btnDelete;
 	public JButton btnCreFol;
+	public JButton btnOpen;
+	public JButton btnReload;
 	public Container con;
 	public JPanel pnTree;
 	public Socket socket;
@@ -52,7 +56,6 @@ public class fMain extends JFrame implements Display {
 	public String Folder_File;
 	public String[] result;
 	public String jtreeVal;
-	public JButton btnOpen;
 
 	public fMain(String username) throws Exception {
 		DBHelper db = new DBHelper();
@@ -142,10 +145,19 @@ public class fMain extends JFrame implements Display {
 				tree.setModel(DisplayTree_());
 			}
 		});
+		btnReload = new JButton("Reload");
+		btnReload.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println(jtreeVal);
+			}
+		});
 		pnlMenu.add(btnUpload);
 		pnlMenu.add(btnDelete);
 		pnlMenu.add(btnOpen);
 		pnlMenu.add(btnCreFol);
+		pnlMenu.add(btnReload);
 		pnlRight.add(pnlMenu, BorderLayout.NORTH);
 
 		JSplitPane sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pnTree, pnlRight);
@@ -157,7 +169,7 @@ public class fMain extends JFrame implements Display {
 	public void DisplayTree() {
 		pnTree = new JPanel();
 		pnTree.setLayout(new BorderLayout());
-		root = new DefaultMutableTreeNode("Home");
+		root = new DefaultMutableTreeNode(new ObjInfor(new File("E:\\TestPBL4\\"), user, "ab", "c"));
 		tree = new JTree(root);
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
@@ -235,7 +247,6 @@ public class fMain extends JFrame implements Display {
 				str = str.substring(1, str.length() - 1);
 				result = str.split(", ");
 			}
-
 		});
 		LoadTree(root, "E:\\TestPBL4\\User\\");
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -301,16 +312,6 @@ public class fMain extends JFrame implements Display {
 		} else {
 			root.add(temp);
 		}
-	}
-
-	@Override
-	public void AddNode(File f) {
-		// TODO Auto-generated method stub
-		DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new ObjInfor(f, user, "ab", "c"));
-		DefaultTreeModel model = (DefaultTreeModel) this.tree.getModel();
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-		root.add(temp);
-		model.reload();
 	}
 
 	public static void main(String[] args) throws Exception {

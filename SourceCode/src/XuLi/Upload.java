@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import ClassObj.ObjInfor;
 import GUI.fMain;
@@ -24,9 +25,10 @@ public class Upload implements ActionListener {
 			File f = fileChoose.getSelectedFile();
 			String pathOld = this.f.user.path;
 			if (this.f.result.length > 3 && (!this.f.result[this.f.result.length - 1].contains("."))) {
-				this.f.user.path = this.f.user.path + "//" + this.f.result[this.f.result.length - 1];
+				this.f.user.path = this.f.user.path + "\\" + this.f.result[this.f.result.length - 1];
 			}
-			ObjInfor obj = new ObjInfor(f, this.f.user, "now", "upload");
+			ObjInfor obj = new ObjInfor(f, this.f.user, "now",
+					((ObjInfor) this.f.selectedNode.getUserObject()).file.getAbsolutePath());
 			this.f.dataOutput.writeObject(obj);
 			this.f.user.path = pathOld;
 //			this.f.tree.setModel(this.f.DisplayTree_());
