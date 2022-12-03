@@ -32,10 +32,10 @@ import ClassObj.Agent;
 import ClassObj.ObjInfor;
 import Client.ClientThread;
 import Database.DBHelper;
+import GUI.fCRUDNV.Display;
 import XuLi.Upload;
 
-@SuppressWarnings("serial")
-public class fMain extends JFrame {
+public class fMain extends JFrame implements Display {
 	public DefaultMutableTreeNode root = null;
 	public JTree tree;
 	public JPanel pnlRender;
@@ -48,11 +48,12 @@ public class fMain extends JFrame {
 	public ObjectInputStream dataInput;
 	public ObjectOutputStream dataOutput;
 	public Agent user;
-	public DefaultMutableTreeNode	selectedNode= null;
+	public DefaultMutableTreeNode selectedNode = null;
 	public String Folder_File;
-	public String[] result ;
+	public String[] result;
 	public String jtreeVal;
 	public JButton btnOpen;
+
 	public fMain(String username) throws Exception {
 		DBHelper db = new DBHelper();
 		this.user = new Agent(db.getAgentByUsername(username));
@@ -90,10 +91,9 @@ public class fMain extends JFrame {
 				// TODO Auto-generated method stub
 				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 				DefaultMutableTreeNode select = selectedNode;
-				int result = JOptionPane.showConfirmDialog(null,"Sure? You want to exit?", "Swing Tester",
-			               JOptionPane.YES_NO_OPTION,
-			               JOptionPane.QUESTION_MESSAGE);	// 0 = yes ,  1= no
-				if(result ==0) {
+				int result = JOptionPane.showConfirmDialog(null, "Sure? You want to exit?", "Swing Tester",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); // 0 = yes , 1= no
+				if (result == 0) {
 					ObjInfor o = (ObjInfor) select.getUserObject();
 					o.getFile().delete();
 					model.removeNodeFromParent(select);
@@ -101,11 +101,11 @@ public class fMain extends JFrame {
 				}
 			}
 		});
-		
-		 btnOpen = new JButton("Open");
-		
+
+		btnOpen = new JButton("Open");
+
 		btnOpen.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -125,18 +125,18 @@ public class fMain extends JFrame {
 				}
 			}
 		});
-		
+
 		btnCreFol = new JButton("Create Folder");
 		btnCreFol.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String name=JOptionPane.showInputDialog(null,"Enter Name");      
-				if((name.contains(" ") || name.contains(""))) {
-					File theDir = new File(user.getPath()+"\\"+name);
-					if (!theDir.exists()){
-					    theDir.mkdirs();
+				String name = JOptionPane.showInputDialog(null, "Enter Name");
+				if ((name.contains(" ") || name.contains(""))) {
+					File theDir = new File(user.getPath() + "\\" + name);
+					if (!theDir.exists()) {
+						theDir.mkdirs();
 					}
 				}
 				tree.setModel(DisplayTree_());
@@ -159,83 +159,66 @@ public class fMain extends JFrame {
 		pnTree.setLayout(new BorderLayout());
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
-//<<<<<<< HEAD
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
-
 			@Override
 			public void valueChanged(TreeSelectionEvent e) {
 				// TODO Auto-generated method stub
 				selectedNode = (DefaultMutableTreeNode) e.getPath().getLastPathComponent();
 				String str = e.getPath().toString();
-				str = str.substring(1, str.length()-1);
+				str = str.substring(1, str.length() - 1);
 				result = str.split(", ");
-//				if (selectedNode.isLeaf()) {
-//					ObjInfor o = (ObjInfor) selectedNode.getUserObject();
-//					System.out.println(o.getDate());
-//					System.out.println(o.getFile());
-//					System.out.println(o);
-//				}
 			}
 
 		});
-		;
-
-		// Display list file in folder sync
 		LoadTree(root, "E:\\TestPBL4\\User\\");
-
-//=======
-//		// Display list file in folder sync
-//		LoadTree(root, "E:\\TestPBL4\\User\\");
-//>>>>>>> 4bda683273464d7e1f3c2be8c7a55dcb877814a1
-		// end
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		pnTree.add(sc, BorderLayout.CENTER);
 
 		pnTree.setPreferredSize(new Dimension(300, 0));
-		
+
 		tree.addMouseListener((MouseListener) new MouseListener() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				jtreeVal = tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ", "\\");
-				// sửa lại path nha
-				String path = "E:\\TestPBL4\\User\\";
-				String[] words = jtreeVal.split("\\\\");
-				if (words.length >= 2) {
-					jtreeVal = path + words[words.length - 2] + "\\" + words[words.length - 1];
-					
+				if (tree.getSelectionPath() != null) {
+					jtreeVal = tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ", "\\");
+					// sửa lại path nha
+					String path = "E:\\TestPBL4\\User\\";
+					String[] words = jtreeVal.split("\\\\");
+					if (words.length >= 2) {
+						jtreeVal = path + words[words.length - 2] + "\\" + words[words.length - 1];
+					}
 				}
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
 
 		});
-		
+
 	}
 
 	public TreeModel DisplayTree_() {
@@ -243,27 +226,76 @@ public class fMain extends JFrame {
 		pnTree.setLayout(new BorderLayout());
 		root = new DefaultMutableTreeNode("Home");
 		tree = new JTree(root);
-		// Display list file in folder sync
-		LoadTree(root, "E:\\TestPBL4\\User\\");
+		tree.addTreeSelectionListener(new TreeSelectionListener() {
+			@Override
+			public void valueChanged(TreeSelectionEvent e) {
+				// TODO Auto-generated method stub
+				selectedNode = (DefaultMutableTreeNode) e.getPath().getLastPathComponent();
+				String str = e.getPath().toString();
+				str = str.substring(1, str.length() - 1);
+				result = str.split(", ");
+			}
 
-		// end
+		});
+		LoadTree(root, "E:\\TestPBL4\\User\\");
 		JScrollPane sc = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		pnTree.add(sc, BorderLayout.CENTER);
 
 		pnTree.setPreferredSize(new Dimension(300, 0));
 
+		tree.addMouseListener((MouseListener) new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (tree.getSelectionPath() != null) {
+					jtreeVal = tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ", "\\");
+					// sửa lại path nha
+					String path = "E:\\TestPBL4\\User\\";
+					String[] words = jtreeVal.split("\\\\");
+					if (words.length >= 2) {
+						jtreeVal = path + words[words.length - 2] + "\\" + words[words.length - 1];
+					}
+				}
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+
 		return tree.getModel();
 	}
 
 	public void LoadTree(DefaultMutableTreeNode root, String path) {
 		File f = new File(path);
-		DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new ObjInfor(f,user,"ab","c"));
+		DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new ObjInfor(f, user, "ab", "c"));
 		if (f.isDirectory()) {
 			root.add(temp);
 			File[] fs = f.listFiles();
 			for (File i : fs) {
-//				System.out.println(i.getAbsolutePath());
 				LoadTree(temp, i.getAbsolutePath());
 			}
 		} else {
@@ -271,7 +303,19 @@ public class fMain extends JFrame {
 		}
 	}
 
-	public static void main(String[] args) throws Exception {
+	@Override
+	public void AddNode(File f) {
+		// TODO Auto-generated method stub
+		DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new ObjInfor(f, user, "ab", "c"));
+		DefaultTreeModel model = (DefaultTreeModel) this.tree.getModel();
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+		root.add(temp);
+		model.reload();
+	}
 
+	public static void main(String[] args) throws Exception {
+		new fMain("minhtuan");
+		new fMain("quanghuy");
+		new fMain("ngochieu");
 	}
 }

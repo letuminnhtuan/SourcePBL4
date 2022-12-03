@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
 import ClassObj.Agent;
 import ClassObj.ObjInfor;
 import GUI.fMain;
@@ -32,7 +35,13 @@ public class ClientThread extends Thread {
 				// Ghi file
 				File f = new File(obj.author.path + "\\" + obj.file.getName());
 				xl.readFile(f, obj.file);
-				this.fmain.tree.setModel(this.fmain.DisplayTree_());
+				//this.fmain.tree.setModel(this.fmain.DisplayTree_());
+				DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
+		        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+		        root.removeAllChildren();
+		        model.reload();
+		        
+		        this.fmain.tree.setModel(this.fmain.DisplayTree_());
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

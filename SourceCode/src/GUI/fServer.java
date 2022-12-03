@@ -1,10 +1,11 @@
 package GUI;
 
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.ServerSocket;
-import java.util.Vector;
+import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,11 +22,9 @@ import javax.swing.table.DefaultTableModel;
 import ClassObj.Agent;
 import Database.DBHelper;
 import GUI.fCRUDNV.Load;
-import Server.ServerThread;
 import XuLi.XuLiServer;
 
 public class fServer extends JFrame implements ActionListener, Load {
-
 	public JPanel contentPane;
 	public JTable table;
 	public JTextField txtSearch;
@@ -34,8 +33,6 @@ public class fServer extends JFrame implements ActionListener, Load {
 	public JButton btnDelete;
 	public JButton btnSearch;
 	public Agent user;
-	public ServerSocket serverSocket;
-	Vector<ServerThread> clients = new Vector<ServerThread>();
 
 	public fServer(String username) {
 		DBHelper db = new DBHelper();
@@ -152,5 +149,16 @@ public class fServer extends JFrame implements ActionListener, Load {
 		} else if (button.equals("SEARCH")) {
 			LoadTable();
 		}
+	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					new fServer("server");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }

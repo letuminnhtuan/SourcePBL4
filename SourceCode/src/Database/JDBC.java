@@ -11,7 +11,7 @@ public class JDBC {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url = "jdbc:mySQL://localhost:3306/pbl4";;
 			String username = "root";
-			String password = "123456789";
+			String password = "";
 			cnn = DriverManager.getConnection(url, username, password);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

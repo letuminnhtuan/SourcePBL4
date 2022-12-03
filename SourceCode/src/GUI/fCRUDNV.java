@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -23,6 +24,10 @@ import XuLi.XuLiServer;
 public class fCRUDNV extends JFrame implements ActionListener {
 	public interface Load {
 		void LoadTable();
+	}
+
+	public interface Display {
+		void AddNode(File f);
 	}
 
 	public JPanel contentPane;
@@ -219,12 +224,13 @@ public class fCRUDNV extends JFrame implements ActionListener {
 		} else if (button.equals("Select")) {
 			JFileChooser j = new JFileChooser(new File("E:\\TestPBL4"));
 			j.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			if(j.showDialog(this, "Select") == JFileChooser.OPEN_DIALOG) {
+			if (j.showDialog(this, "Select") == JFileChooser.OPEN_DIALOG) {
 				File dir = j.getSelectedFile();
 				this.txtPath.setText(dir.getAbsolutePath());
 			}
 		}
 	}
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
