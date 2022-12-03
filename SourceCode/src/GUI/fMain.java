@@ -260,14 +260,18 @@ public class fMain extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				if (tree.getSelectionPath() != null) {
-					jtreeVal = tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ", "\\");
-					// sửa lại path nha
-					String path = "E:\\TestPBL4\\User\\";
-					String[] words = jtreeVal.split("\\\\");
-					if (words.length >= 2) {
-						jtreeVal = path + words[words.length - 2] + "\\" + words[words.length - 1];
+				try {
+					if (tree.getSelectionPath() != null) {
+						jtreeVal = tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ", "\\");
+						// sửa lại path nha
+						String path = "D:\\TestPBL4\\User\\";
+						String[] words = jtreeVal.split("\\\\");
+						if (words.length >= 2) {
+							jtreeVal = path + words[words.length - 2] + "\\" + words[words.length - 1];
+						}
 					}
+				} catch (Exception e2) {
+					// TODO: handle exception
 				}
 			}
 
