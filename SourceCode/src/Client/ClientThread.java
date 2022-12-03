@@ -61,8 +61,8 @@ public class ClientThread extends Thread {
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
 					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 					DefaultMutableTreeNode temp = findNode(root, obj.file.getAbsolutePath());
-					System.out.println(obj.file.getAbsolutePath());
-					temp.add(new DefaultMutableTreeNode(new ObjInfor(obj.file, user, "", "")));
+					temp.add(new DefaultMutableTreeNode(
+							new ObjInfor(new File(obj.file.getAbsoluteFile() + "\\" + listStr[1]), user, "", "")));
 					model.reload();
 				}
 			}

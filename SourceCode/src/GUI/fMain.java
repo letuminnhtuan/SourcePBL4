@@ -43,7 +43,6 @@ public class fMain extends JFrame {
 	public JButton btnDelete;
 	public JButton btnCreFol;
 	public JButton btnOpen;
-	public JButton btnReload;
 	public Container con;
 	public JPanel pnTree;
 	public Socket socket;
@@ -113,19 +112,10 @@ public class fMain extends JFrame {
 
 		btnCreFol = new JButton("Create Folder");
 		btnCreFol.addActionListener(new CreateFolder(this));
-		btnReload = new JButton("Reload");
-		btnReload.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println(jtreeVal);
-			}
-		});
 		pnlMenu.add(btnUpload);
 		pnlMenu.add(btnDelete);
 		pnlMenu.add(btnOpen);
 		pnlMenu.add(btnCreFol);
-		pnlMenu.add(btnReload);
 		pnlRight.add(pnlMenu, BorderLayout.NORTH);
 
 		JSplitPane sp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pnTree, pnlRight);
