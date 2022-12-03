@@ -4,8 +4,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import ClassObj.Agent;
+import Client.ClientThread;
 import Database.DBHelper;
 import GUI.fCRUDNV.Load;
 import XuLi.XuLiServer;
@@ -33,13 +36,19 @@ public class fServer extends JFrame implements ActionListener, Load {
 	public JButton btnDelete;
 	public JButton btnSearch;
 	public Agent user;
+	public Socket socket;
+	public ObjectInputStream dataInput;
+	public ObjectOutputStream dataOutput;
 
-	public fServer(String username) {
+	public fServer(String username) throws IOException {
 		DBHelper db = new DBHelper();
 		this.user = new Agent(db.getAgentByUsername(username));
 		setVisible(true);
 		setTitle(this.user.name);
 		setResizable(false);
+		socket = new Socket(user.host, user.port);
+		dataOutput = new ObjectOutputStream(socket.getOutputStream());
+		dataInput = new ObjectInputStream(socket.getInputStream());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1117, 588);
 		contentPane = new JPanel();
@@ -150,11 +159,12 @@ public class fServer extends JFrame implements ActionListener, Load {
 			LoadTable();
 		}
 	}
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new fServer("server");
+					new fServer("minhtuan");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

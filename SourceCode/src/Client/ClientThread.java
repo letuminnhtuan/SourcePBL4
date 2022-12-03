@@ -31,24 +31,45 @@ public class ClientThread extends Thread {
 			while (true) {
 				// Client nhận được file
 				ObjInfor obj = (ObjInfor) dataInput.readObject();
-				// Tạo file với đường dẫn tương ứng
-				XuLiTacVu xl = new XuLiTacVu();
-				xl.createFileInPath(obj.author.path, obj.file.getName());
-				// Ghi file
-				File file = new File(obj.author.path + "\\" + obj.file.getName());
-				xl.readFile(file, obj.file);
-				System.out.println(obj.note);
-				DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
-				DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-				DefaultMutableTreeNode temp = findNode(root, obj.note);
-				temp.add(new DefaultMutableTreeNode(new ObjInfor(file, user, "", "")));
-				model.reload();
+				////////////////////////
+				String[] listStr = obj.note.split(",");
+				if (listStr[0].equals("upload")) {
+					// Tạo file với đường dẫn tương ứng
+					XuLiTacVu xl = new XuLiTacVu();
+					xl.createFileInPath(obj.author.path, obj.file.getName());
+					// Ghi file
+					File file = new File(obj.author.path + "\\" + obj.file.getName());
+					xl.readFile(file, obj.file);
+					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
+					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+					DefaultMutableTreeNode temp = findNode(root, listStr[1]);
+					temp.add(new DefaultMutableTreeNode(new ObjInfor(file, user, "", "")));
+					model.reload();
+				} else if (listStr[0].equals("delete")) {
+					// Tạo file với đường dẫn tương ứng
+					XuLiTacVu xl = new XuLiTacVu();
+					xl.createFileInPath(obj.author.path, obj.file.getName());
+					// Ghi file
+					File file = new File(obj.author.path + "\\" + obj.file.getName());
+					xl.readFile(file, obj.file);
+					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
+					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+					DefaultMutableTreeNode temp = findNode(root, listStr[1]);
+					model.removeNodeFromParent(temp);
+					model.reload();
+				} else if (listStr[0].equals("createFol")) {
+					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
+					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+					DefaultMutableTreeNode temp = findNode(root, obj.file.getAbsolutePath());
+					System.out.println(obj.file.getAbsolutePath());
+					temp.add(new DefaultMutableTreeNode(new ObjInfor(obj.file, user, "", "")));
+					model.reload();
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("1");
 			e.printStackTrace();
-
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

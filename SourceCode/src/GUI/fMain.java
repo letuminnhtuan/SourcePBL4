@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Enumeration;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,15 +25,14 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreeNode;
 
 import ClassObj.Agent;
 import ClassObj.ObjInfor;
 import Client.ClientThread;
 import Database.DBHelper;
+import XuLi.CreateFolder;
+import XuLi.Delete;
 import XuLi.Upload;
 
 public class fMain extends JFrame {
@@ -87,23 +85,7 @@ public class fMain extends JFrame {
 		btnUpload = new JButton("Upload");
 		btnUpload.addActionListener(new Upload(this));
 		btnDelete = new JButton("Delete");
-		btnDelete.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-				DefaultMutableTreeNode select = selectedNode;
-				int result = JOptionPane.showConfirmDialog(null, "Sure? You want to exit?", "Swing Tester",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); // 0 = yes , 1= no
-				if (result == 0) {
-					ObjInfor o = (ObjInfor) select.getUserObject();
-					o.getFile().delete();
-					model.removeNodeFromParent(select);
-					model.reload();
-				}
-			}
-		});
+		btnDelete.addActionListener(new Delete(this));
 
 		btnOpen = new JButton("Open");
 
@@ -130,21 +112,7 @@ public class fMain extends JFrame {
 		});
 
 		btnCreFol = new JButton("Create Folder");
-		btnCreFol.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				String name = JOptionPane.showInputDialog(null, "Enter Name");
-				if ((name.contains(" ") || name.contains(""))) {
-					File theDir = new File(user.getPath() + "\\" + name);
-					if (!theDir.exists()) {
-						theDir.mkdirs();
-					}
-				}
-				tree.setModel(DisplayTree_());
-			}
-		});
+		btnCreFol.addActionListener(new CreateFolder(this));
 		btnReload = new JButton("Reload");
 		btnReload.addActionListener(new ActionListener() {
 			@Override

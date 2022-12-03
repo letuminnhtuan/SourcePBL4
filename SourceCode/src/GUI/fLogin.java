@@ -42,9 +42,9 @@ public class fLogin extends JFrame implements ActionListener {
 				if (db.checkLogin(username, password)) {
 					this.txtUsername.setText("");
 					this.txtPassword.setText("");
-					if (db.getAgentByUsername(username).role.equals("admin")) {
+					if (db.getAgentByUsername(username).role.equals("user")) {
 						new fMain(username);
-					} else if (db.getAgentByUsername(username).role.equals("server")) {
+					} else if (db.getAgentByUsername(username).role.equals("admin")) {
 						new fServer(username);
 					}
 				}

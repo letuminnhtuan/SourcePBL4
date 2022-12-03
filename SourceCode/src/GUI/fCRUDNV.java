@@ -126,7 +126,7 @@ public class fCRUDNV extends JFrame implements ActionListener {
 		contentPane.add(lblRole);
 
 		cbbRole = new JComboBox<String>();
-		cbbRole.setModel(new DefaultComboBoxModel<String>(new String[] { "admin", "server" }));
+		cbbRole.setModel(new DefaultComboBoxModel<String>(new String[] { "admin", "server", "user" }));
 		cbbRole.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		cbbRole.setBounds(159, 338, 387, 38);
 		cbbRole.setSelectedIndex(-1);

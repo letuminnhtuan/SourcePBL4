@@ -27,7 +27,7 @@ public class Upload implements ActionListener {
 			if (this.f.result.length > 3 && (!this.f.result[this.f.result.length - 1].contains("."))) {
 				this.f.user.path = this.f.user.path + "\\" + this.f.result[this.f.result.length - 1];
 			}
-			ObjInfor obj = new ObjInfor(f, this.f.user, "now",
+			ObjInfor obj = new ObjInfor(f, this.f.user, "now", "upload," + 
 					((ObjInfor) this.f.selectedNode.getUserObject()).file.getAbsolutePath());
 			this.f.dataOutput.writeObject(obj);
 			this.f.user.path = pathOld;
