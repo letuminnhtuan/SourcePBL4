@@ -48,10 +48,8 @@ public class ClientThread extends Thread {
 				} else if (listStr[0].equals("delete")) {
 					// Tạo file với đường dẫn tương ứng
 					XuLiTacVu xl = new XuLiTacVu();
-					xl.createFileInPath(obj.author.path, obj.file.getName());
-					// Ghi file
-					File file = new File(obj.author.path + "\\" + obj.file.getName());
-					xl.readFile(file, obj.file);
+					File file = new File(listStr[1]);
+					file.delete();
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
 					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 					DefaultMutableTreeNode temp = findNode(root, listStr[1]);

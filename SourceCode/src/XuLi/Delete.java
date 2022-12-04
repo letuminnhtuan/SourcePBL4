@@ -26,9 +26,6 @@ public class Delete implements ActionListener {
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); // 0 = yes , 1= no
 			if (result == 0) {
 				ObjInfor o = (ObjInfor) select.getUserObject();
-//				o.getFile().delete();
-//				model.removeNodeFromParent(select);
-//				model.reload();
 				ObjInfor obj = new ObjInfor(o.getFile(), this.f.user, "now", "delete," + 
 						((ObjInfor) this.f.selectedNode.getUserObject()).file.getAbsolutePath());
 				this.f.dataOutput.writeObject(obj);
