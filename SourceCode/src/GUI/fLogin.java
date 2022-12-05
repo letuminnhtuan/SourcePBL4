@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -33,10 +34,10 @@ public class fLogin extends JFrame implements ActionListener {
 		try {
 			String username = this.txtUsername.getText();
 			String password = String.valueOf(this.txtPassword.getPassword());
-			if (username.length() == 0) {
-
-			} else if (password.length() == 0) {
-
+			if (username.length() == 0 || password.length() == 0) {
+				this.txtUsername.setText("");
+				this.txtPassword.setText("");
+				JOptionPane.showMessageDialog(this, "Fill full data");
 			} else {
 				DBHelper db = new DBHelper();
 				if (db.checkLogin(username, password)) {

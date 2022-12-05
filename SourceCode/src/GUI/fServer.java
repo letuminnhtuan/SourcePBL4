@@ -158,7 +158,7 @@ public class fServer extends JFrame implements ActionListener, Load {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new fServer("minhtuan");
+					new fServer("server");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
