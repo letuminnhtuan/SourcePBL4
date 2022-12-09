@@ -21,15 +21,21 @@ public class CreateFolder implements ActionListener {
 		try {
 			String name = JOptionPane.showInputDialog(null, "Enter Name");
 			if ((name.contains(" ") || name.contains(""))) {
-				File theDir = new File(this.f.user.getPath() + "\\" + name);
-//				System.out.println(theDir.getAbsolutePath());
+				File theDir = new File(this.f.val + "\\" + name);
 				if (!theDir.exists()) {
 					theDir.mkdirs();
-//					new CheckFileEdit(theDir.getAbsolutePath(), this.f).start();
-					ObjInfor obj = new ObjInfor(new File(this.f.user.getPath()), this.f.user, "now",
-							"createFol," + name);
+					ObjInfor obj = new ObjInfor(new File(this.f.val), this.f.user, "now", "createFol," + name);
 					this.f.dataOutput.writeObject(obj);
 				}
+//				File theDir = new File(this.f.user.getPath() + "\\" + name);
+//				System.out.println(theDir.getAbsolutePath());
+//				if (!theDir.exists()) {
+//					theDir.mkdirs();
+////					new CheckFileEdit(theDir.getAbsolutePath(), this.f).start();
+////					ObjInfor obj = new ObjInfor(new File(this.f.user.getPath()), this.f.user, "now",
+////							"createFol," + name);
+////					this.f.dataOutput.writeObject(obj);
+//				}
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();

@@ -57,6 +57,7 @@ public class fMain extends JFrame {
 	public String Folder_File;
 	public String[] result;
 	public String jtreeVal;
+	public String val;
 
 	public fMain(String username) throws Exception {
 		DBHelper db = new DBHelper();
@@ -143,6 +144,6 @@ public class fMain extends JFrame {
 	public static void main(String[] args) throws Exception {
 		new fMain("minhtuan");
 //		new fMain("quanghuy");
-		new fMain("ngochieu");
+//		new fMain("ngochieu");
 	}
 }

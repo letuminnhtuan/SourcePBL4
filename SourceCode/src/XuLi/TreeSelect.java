@@ -3,6 +3,7 @@ package XuLi;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import ClassObj.ObjInfor;
 import GUI.fMain;
 
 public class TreeSelect implements MouseListener {
@@ -17,15 +18,17 @@ public class TreeSelect implements MouseListener {
 		// TODO Auto-generated method stub
 		try {
 			if (this.f.tree.getSelectionPath() != null) {
-				this.f.jtreeVal = this.f.tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ",
-						"\\");
-				// sửa lại path nha
-				String path = "E:\\TestPBL4\\User\\";
-				String[] words = this.f.jtreeVal.split("\\\\");
-				if (words.length >= 2) {
-					this.f.jtreeVal = path + words[words.length - 2] + "\\" + words[words.length - 1];
-					System.out.println(this.f.jtreeVal);
-				}
+				ObjInfor obj = (ObjInfor) this.f.tree.getSelectionPath().getLastPathComponent();
+				System.out.println(obj.file.getAbsolutePath());
+//				this.f.jtreeVal = this.f.tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ",
+//						"\\");
+//				// sửa lại path nha
+//				String path = "E:\\TestPBL4\\User\\";
+//				String[] words = this.f.jtreeVal.split("\\\\");
+//				if (words.length >= 2) {
+//					this.f.jtreeVal = path + words[words.length - 2] + "\\" + words[words.length - 1];
+//					System.out.println(this.f.jtreeVal);
+//				}
 			}
 		} catch (Exception e2) {
 			// TODO: handle exception

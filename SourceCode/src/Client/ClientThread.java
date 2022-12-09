@@ -34,26 +34,25 @@ public class ClientThread extends Thread {
 				////////////////////////
 				String[] listStr = obj.note.split(",");
 				if (listStr[0].equals("upload")) {
-					System.out.println(listStr[1]);
-//					// Tạo file với đường dẫn tương ứng
-//					XuLiTacVu xl = new XuLiTacVu();
-//					//xl.createFileInPath(obj.author.path, obj.file.getName());
-//					File t = new File(listStr[1]);
-//					t.createNewFile();
+//					System.out.println(listStr[1]); // E:\TestPBL4\User\Tuan\abc
+//					System.out.println(obj.file.getAbsolutePath()); // E:\KTTSL.txt
+					// Tạo file với đường dẫn tương ứng
+					File file = new File(listStr[1] + "\\" + obj.file.getName());
+					System.out.println(file.getAbsolutePath()); // E:\TestPBL4\User\Tuan\abc\book.pdf
+					file.createNewFile();
+
 //					// Ghi file
 //					File file = new File(obj.author.path + "\\" + obj.file.getName());
 //					xl.readFile(file, obj.file);
-					
+
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
 					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 					DefaultMutableTreeNode temp = findNode(root, listStr[1]);
-//					temp.add(new DefaultMutableTreeNode(new ObjInfor(file, user, "", "")));
+					temp.add(new DefaultMutableTreeNode(new ObjInfor(file, user, "", "")));
 					model.reload();
 				} else if (listStr[0].equals("delete")) {
-					// Tạo file với đường dẫn tương ứng
-					XuLiTacVu xl = new XuLiTacVu();
-					File file = new File(listStr[1]);
-					file.delete();
+//					File file = new File(listStr[1]);
+//					file.delete();
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
 					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 					DefaultMutableTreeNode temp = findNode(root, listStr[1]);
@@ -62,9 +61,11 @@ public class ClientThread extends Thread {
 				} else if (listStr[0].equals("createFol")) {
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
 					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-					DefaultMutableTreeNode temp = findNode(root, obj.file.getAbsolutePath());
-					temp.add(new DefaultMutableTreeNode(
-							new ObjInfor(new File(obj.file.getAbsoluteFile() + "\\" + listStr[1]), user, "", "")));
+//					DefaultMutableTreeNode temp = findNode(root, obj.file.getAbsolutePath());
+					DefaultMutableTreeNode temp = findNode(root, this.fmain.val);
+					DefaultMutableTreeNode node = new DefaultMutableTreeNode(
+							new ObjInfor(new File(this.fmain.val + "\\" + listStr[1]), user, "", ""));
+					temp.add(node);
 					model.reload();
 				}
 			}
