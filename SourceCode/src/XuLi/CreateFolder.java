@@ -24,6 +24,7 @@ public class CreateFolder implements ActionListener {
 				File theDir = new File(this.f.user.getPath() + "\\" + name);
 				if (!theDir.exists()) {
 					theDir.mkdirs();
+//					new CheckFileEdit(theDir.getAbsolutePath(), this.f).start();
 					ObjInfor obj = new ObjInfor(new File(this.f.user.getPath()), this.f.user, "now",
 							"createFol," + name);
 					this.f.dataOutput.writeObject(obj);

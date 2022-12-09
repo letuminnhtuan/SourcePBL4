@@ -1,9 +1,8 @@
 package XuLi;
 
-import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -13,11 +12,10 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
 public class CheckFileChange {
-	public static void main(String[] args) throws IOException {
+	public CheckFileChange(String path) throws IOException {
 		WatchService watcher = FileSystems.getDefault().newWatchService();
-		Path dir = Paths.get("E:\\TestPBL4\\User\\Tuan");
-		dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
-
+		Path dir = Paths.get(path);
+		dir.register(watcher, ENTRY_MODIFY);
 		while (true) {
 			WatchKey key;
 			try {
@@ -30,21 +28,17 @@ public class CheckFileChange {
 				@SuppressWarnings("unchecked")
 				WatchEvent<Path> ev = (WatchEvent<Path>) event;
 				Path fileName = ev.context();
-				System.out.println(kind.name() + ": " + fileName);
-				if (kind == ENTRY_MODIFY && fileName.toString().equals("DirectoryWatchDemo.java")) {
-					System.out.println("My source file has changed!!!");
-				} else if (kind == ENTRY_CREATE) {
-					System.out.println("create");
-				} else if (kind == ENTRY_DELETE) {
-					System.out.println("delete");
-				} else if (kind == ENTRY_MODIFY) {
-					System.out.println("modify");
-				}
+				File file = new File(path + "\\"+ fileName.getFileName());
+				System.out.println(file.getAbsolutePath());
 			}
 			boolean valid = key.reset();
 			if (!valid) {
 				break;
 			}
 		}
+	}
+
+	public static void main(String[] args) throws IOException {
+		new CheckFileChange("E:\\TestPBL4\\User\\Tuan");
 	}
 }

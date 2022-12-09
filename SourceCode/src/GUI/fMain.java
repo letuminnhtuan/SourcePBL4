@@ -31,6 +31,7 @@ import ClassObj.Agent;
 import ClassObj.ObjInfor;
 import Client.ClientThread;
 import Database.DBHelper;
+import XuLi.CheckFileEdit;
 import XuLi.CreateFolder;
 import XuLi.Delete;
 import XuLi.Upload;
@@ -221,7 +222,7 @@ public class fMain extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
+				// TODO Auto-generated method stubR
 				try {
 					if (tree.getSelectionPath() != null) {
 						jtreeVal = tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ", "\\");
@@ -270,6 +271,8 @@ public class fMain extends JFrame {
 		File f = new File(path);
 		DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new ObjInfor(f, user, "ab", "c"));
 		if (f.isDirectory()) {
+			System.out.println(path);
+			new CheckFileEdit(path, this).start();
 			root.add(temp);
 			File[] fs = f.listFiles();
 			for (File i : fs) {
