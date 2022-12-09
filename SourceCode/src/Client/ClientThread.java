@@ -40,11 +40,14 @@ public class ClientThread extends Thread {
 					File file = new File(listStr[1] + "\\" + obj.file.getName());
 					System.out.println(file.getAbsolutePath()); // E:\TestPBL4\User\Tuan\abc\book.pdf
 					file.createNewFile();
+//					---------------------------------------------------------------------------------------------
 
 //					// Ghi file
+//					XuLiTacVu xl = new XuLiTacVu();
 //					File file = new File(obj.author.path + "\\" + obj.file.getName());
 //					xl.readFile(file, obj.file);
-
+					
+//					---------------------------------------------------------------------------------------------
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
 					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 					DefaultMutableTreeNode temp = findNode(root, listStr[1]);
@@ -71,7 +74,6 @@ public class ClientThread extends Thread {
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("1");
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

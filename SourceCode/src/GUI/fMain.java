@@ -130,7 +130,7 @@ public class fMain extends JFrame {
 		File f = new File(path);
 		DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new ObjInfor(f, user, "ab", "c"));
 		if (f.isDirectory()) {
-			new CheckFileEdit(path, this).start();
+//			new CheckFileEdit(path, this).start();
 			root.add(temp);
 			File[] fs = f.listFiles();
 			for (File i : fs) {
