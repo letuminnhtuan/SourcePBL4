@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
-public class Server{
+public class Server {
 	public ServerSocket serverSocket;
 	Vector<ServerThread> clients = new Vector<ServerThread>();
 
@@ -27,8 +27,9 @@ public class Server{
 			// TODO Auto-generated catch block
 			System.err.println(e);
 		}
-//		ServerSocket sk = new ServerSocket(9988);
-//		Socket ske = sk.accept();
-//		System.out.println(ske);
+//		Socket sk = new Socket("192.168.43.166", 9999);
+//		ServerSocket sk = new ServerSocket(9999);
+//		Socket s = sk.accept();
+//		System.out.println(s.toString());
 	}
 }

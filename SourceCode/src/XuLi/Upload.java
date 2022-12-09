@@ -3,9 +3,11 @@ package XuLi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.JFileChooser;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 import ClassObj.ObjInfor;
 import GUI.fMain;
@@ -36,5 +38,4 @@ public class Upload implements ActionListener {
 			e1.printStackTrace();
 		}
 	}
-
 }

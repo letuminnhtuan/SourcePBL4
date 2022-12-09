@@ -22,6 +22,7 @@ public class CreateFolder implements ActionListener {
 			String name = JOptionPane.showInputDialog(null, "Enter Name");
 			if ((name.contains(" ") || name.contains(""))) {
 				File theDir = new File(this.f.user.getPath() + "\\" + name);
+//				System.out.println(theDir.getAbsolutePath());
 				if (!theDir.exists()) {
 					theDir.mkdirs();
 //					new CheckFileEdit(theDir.getAbsolutePath(), this.f).start();

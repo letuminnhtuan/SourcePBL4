@@ -34,16 +34,20 @@ public class ClientThread extends Thread {
 				////////////////////////
 				String[] listStr = obj.note.split(",");
 				if (listStr[0].equals("upload")) {
-					// Tạo file với đường dẫn tương ứng
-					XuLiTacVu xl = new XuLiTacVu();
-					xl.createFileInPath(obj.author.path, obj.file.getName());
-					// Ghi file
-					File file = new File(obj.author.path + "\\" + obj.file.getName());
-					xl.readFile(file, obj.file);
+					System.out.println(listStr[1]);
+//					// Tạo file với đường dẫn tương ứng
+//					XuLiTacVu xl = new XuLiTacVu();
+//					//xl.createFileInPath(obj.author.path, obj.file.getName());
+//					File t = new File(listStr[1]);
+//					t.createNewFile();
+//					// Ghi file
+//					File file = new File(obj.author.path + "\\" + obj.file.getName());
+//					xl.readFile(file, obj.file);
+					
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
 					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 					DefaultMutableTreeNode temp = findNode(root, listStr[1]);
-					temp.add(new DefaultMutableTreeNode(new ObjInfor(file, user, "", "")));
+//					temp.add(new DefaultMutableTreeNode(new ObjInfor(file, user, "", "")));
 					model.reload();
 				} else if (listStr[0].equals("delete")) {
 					// Tạo file với đường dẫn tương ứng
