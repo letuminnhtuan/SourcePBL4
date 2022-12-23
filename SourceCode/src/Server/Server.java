@@ -27,9 +27,5 @@ public class Server {
 			// TODO Auto-generated catch block
 			System.err.println(e);
 		}
-//		Socket sk = new Socket("192.168.43.166", 9999);
-//		ServerSocket sk = new ServerSocket(9999);
-//		Socket s = sk.accept();
-//		System.out.println(s.toString());
 	}
 }

@@ -3,14 +3,17 @@ package XuLi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 
 import javax.swing.JFileChooser;
 
 import ClassObj.ObjInfor;
 import GUI.fMain;
+import test.testServer;
 
 public class Upload implements ActionListener {
 	public fMain f;
@@ -25,17 +28,17 @@ public class Upload implements ActionListener {
 			JFileChooser fileChoose = new JFileChooser(new File("C:"));
 			fileChoose.showDialog(this.f, "Open");
 			File f = fileChoose.getSelectedFile();
-//			String pathOld = this.f.user.path;
-//			if (this.f.result.length > 3 && (!this.f.result[this.f.result.length - 1].contains("."))) {
-//				this.f.user.path = this.f.user.path + "\\" + this.f.result[this.f.result.length - 1];
-//			}
-//			ObjInfor obj = new ObjInfor(f, this.f.user, "now", "upload," + 
-//					((ObjInfor) this.f.selectedNode.getUserObject()).file.getAbsolutePath());
-			
 			ObjInfor obj = new ObjInfor(f, this.f.user, "now", "upload," + this.f.val);
 			this.f.dataOutput.writeObject(obj);
-//			this.f.user.path = pathOld;
-//			this.f.tree.setModel(this.f.DisplayTree_());
+			// Test -----------------------------------------------------
+			FileInputStream fis = new FileInputStream(f);
+			byte[] buffer = new byte[100];
+			Integer bytesRead = 0;
+			while ((bytesRead = fis.read(buffer)) > 0) {
+				this.f.dataOutput.writeObject(bytesRead);
+//				this.f.dataOutput.writeObject(Arrays.copyOf(buffer, buffer.length));
+			}
+			// Test -----------------------------------------------------
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
