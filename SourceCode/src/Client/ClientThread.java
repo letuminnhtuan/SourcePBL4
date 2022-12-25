@@ -1,6 +1,7 @@
 package Client;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -33,21 +34,54 @@ public class ClientThread extends Thread {
 				Object o = dataInput.readObject();
 				ObjInfor obj = (ObjInfor) o;
 				String[] listStr = obj.note.split(",");
+				System.out.println(obj.getFile().length());
+				File file = new File("D:\\" + obj.file.getName());
+				file.createNewFile();
+				FileInputStream in = new FileInputStream(obj.getFile());
+		        FileOutputStream out = new FileOutputStream(file);
+		  
+		        try {	
+		            int n;
+		            while ((n = in.read()) != -1) {
+		                out.write(n);
+		            }
+		        }
+		        finally {
+		            if (in != null) {
+		                in.close();
+		            }
+		            if (out != null) {
+		                out.close();
+		            }
+		        }
+		        System.out.println("File Copied");
+		        
 				if (listStr[0].equals("upload")) {
 					// Tạo file với đường dẫn tương ứng
 //					File file = new File(listStr[1] + "\\" + obj.file.getName());
-					File file = new File("D:\\" + obj.file.getName());
-					file.createNewFile();
+//					File file = new File("D:\\" + obj.file.getName());
+//					file.createNewFile();
 //					-----------------------------------------------------------------------
 //					-----------------------------------------------------------------------
 //					-----------------------------------------------------------------------
-					try {
-						o = dataInput.readObject();
-						Integer bytesRead = (Integer) o;
-						System.out.println(bytesRead);
-					} catch(Exception e) {
-						e.printStackTrace();
-					}
+//					System.out.println("aa");
+//					System.out.println(o);
+//					o = dataInput.readObject();
+//					System.out.println(o);
+//					System.out.println("cc");
+//					System.out.println((Integer) o);
+//					Integer bytesRead = (Integer) o;
+//					System.out.println(bytesRead);
+//					try {
+//						o = dataInput.readObject();
+//						System.out.println(o);
+//						System.out.println("cc");
+//						System.out.println((Integer) o);
+//						Integer bytesRead = (Integer) o;
+//						System.out.println(bytesRead);
+//					} catch(Exception e) {
+//						e.printStackTrace();
+//					}
 //					byte[] buffer = new byte[100];
 //					FileOutputStream fileOutput = new FileOutputStream(file);
 //					Integer bytesRead = 0;
