@@ -36,7 +36,7 @@ public class Upload implements ActionListener {
 			Integer bytesRead = 0;
 			while ((bytesRead = fis.read(buffer)) > 0) {
 				this.f.dataOutput.writeObject(bytesRead);
-//				this.f.dataOutput.writeObject(Arrays.copyOf(buffer, buffer.length));
+				this.f.dataOutput.writeObject(Arrays.copyOf(buffer, buffer.length));
 			}
 			// Test -----------------------------------------------------
 		} catch (Exception e1) {
