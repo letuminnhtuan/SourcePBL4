@@ -1,6 +1,7 @@
 package Client;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
@@ -31,16 +32,19 @@ public class ClientThread extends Thread {
 		try {
 			while (true) {
 				ObjInfor objInfor = (ObjInfor) dataInput.readObject();
-				ObjFile objFile = (ObjFile) dataInput.readObject();
-				System.out.println(objFile.data.length);
 				String[] listStr = objInfor.note.split(",");
 				if (listStr[0].equals("upload")) {
+					ObjFile objFile = (ObjFile) dataInput.readObject();
 					File file = new File(listStr[1] + "\\" + objInfor.file.getName());
 //					file.createNewFile();
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
 					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 					DefaultMutableTreeNode temp = findNode(root, listStr[1]);
 					temp.add(new DefaultMutableTreeNode(new ObjInfor(file, user, "", "")));
+					try (FileOutputStream fos = new FileOutputStream(objInfor.author.path + objInfor.file.getName())) {
+						   fos.write(objFile.data);
+						   //fos.close(); There is no more need for this line since you had created the instance of "fos" inside the try. And this will automatically close the OutputStream
+						}
 					model.reload();
 				} else if (listStr[0].equals("delete")) {
 					File file = new File(listStr[1]);
