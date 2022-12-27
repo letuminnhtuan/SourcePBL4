@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import ClassObj.ObjFile;
@@ -22,17 +23,17 @@ public class ServerThread extends Thread {
 		dataOutput = new ObjectOutputStream(socket.getOutputStream());
 	}
 
-	public void SendAll(ObjInfor obj, ObjFile objFile) {
+	public void SendAll(ArrayList<Object> list) {
 		for (ServerThread c : clients) {
 //			System.out.println(obj.getClass());
-			c.SendMess(obj, objFile);
+			c.SendMess(list);
 		}
 	}
 
-	public void SendMess(ObjInfor obj, ObjFile objFile) {
+	public void SendMess(ArrayList<Object> list) {
 		try {
-			this.dataOutput.writeObject(obj);
-			this.dataOutput.writeObject(objFile);
+			this.dataOutput.writeObject(list);
+//			this.dataOutput.writeObject(objFile);
 		} catch (IOException e) {
 
 		}
@@ -41,9 +42,10 @@ public class ServerThread extends Thread {
 	public void run() {
 		try {
 			while (true) {
-				ObjInfor objInfor = (ObjInfor) dataInput.readObject();
-				ObjFile objFile = (ObjFile) dataInput.readObject();
-				SendAll(objInfor, objFile);
+//				ObjInfor objInfor = (ObjInfor) dataInput.readObject();
+//				ObjFile objFile = (ObjFile) dataInput.readObject();
+				ArrayList<Object> list = (ArrayList<Object>) dataInput.readObject();
+				SendAll(list);
 			}
 		} catch (Exception e) {
 

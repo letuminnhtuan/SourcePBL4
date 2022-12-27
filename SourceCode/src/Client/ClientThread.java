@@ -31,22 +31,23 @@ public class ClientThread extends Thread {
 	public void run() {
 		try {
 			while (true) {
-				ObjInfor objInfor = (ObjInfor) dataInput.readObject();
+//				ObjInfor objInfor = (ObjInfor) dataInput.readObject();
+				ArrayList<Object> list = (ArrayList<Object>) dataInput.readObject();
+				ObjInfor objInfor = (ObjInfor) list.get(0);
 				String[] listStr = objInfor.note.split(",");
 				if (listStr[0].equals("upload")) {
-					ObjFile objFile = (ObjFile) dataInput.readObject();
+					ObjFile objFile = (ObjFile) list.get(1);
 					File file = new File(listStr[1] + "\\" + objInfor.file.getName());
-//					file.createNewFile();
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
 					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 					DefaultMutableTreeNode temp = findNode(root, listStr[1]);
 					temp.add(new DefaultMutableTreeNode(new ObjInfor(file, user, "", "")));
-					try (FileOutputStream fos = new FileOutputStream(objInfor.author.path + objInfor.file.getName())) {
-						   fos.write(objFile.data);
-						   //fos.close(); There is no more need for this line since you had created the instance of "fos" inside the try. And this will automatically close the OutputStream
-						}
+					try (FileOutputStream fos = new FileOutputStream(file)) {
+						fos.write(objFile.data);
+					}
 					model.reload();
 				} else if (listStr[0].equals("delete")) {
+					System.out.println("del");
 					File file = new File(listStr[1]);
 					file.delete();
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();

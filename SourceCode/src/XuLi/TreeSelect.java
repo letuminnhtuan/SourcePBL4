@@ -19,16 +19,7 @@ public class TreeSelect implements MouseListener {
 		try {
 			if (this.f.tree.getSelectionPath() != null) {
 				ObjInfor obj = (ObjInfor) this.f.tree.getSelectionPath().getLastPathComponent();
-				System.out.println(obj.file.getAbsolutePath());
-//				this.f.jtreeVal = this.f.tree.getSelectionPath().toString().replaceAll("[\\[\\]]", "").replace(", ",
-//						"\\");
-//				// sửa lại path nha
-//				String path = "E:\\TestPBL4\\User\\";
-//				String[] words = this.f.jtreeVal.split("\\\\");
-//				if (words.length >= 2) {
-//					this.f.jtreeVal = path + words[words.length - 2] + "\\" + words[words.length - 1];
-//					System.out.println(this.f.jtreeVal);
-//				}
+//				System.out.println(obj.file.getAbsolutePath());
 			}
 		} catch (Exception e2) {
 			// TODO: handle exception

@@ -26,14 +26,16 @@ public class Upload implements ActionListener {
 			fileChoose.showDialog(this.f, "Open");
 			File f = fileChoose.getSelectedFile();
 			ObjInfor objInfor = new ObjInfor(f, this.f.user, "now", "upload," + this.f.val);
-			this.f.dataOutput.writeObject(objInfor);
-			
 			// Read File
 			FileInputStream fis = new FileInputStream(f);
 			byte[] buffer = new byte[(int) f.length()];
 			fis.read(buffer);
 			ObjFile objFile = new ObjFile(buffer);
-			this.f.dataOutput.writeObject(objFile);
+			// Send Object
+			ArrayList<Object> l = new ArrayList<>();
+			l.add(objInfor);
+			l.add(objFile);
+			this.f.dataOutput.writeObject(l);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

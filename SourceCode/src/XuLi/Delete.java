@@ -3,6 +3,7 @@ package XuLi;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -21,17 +22,15 @@ public class Delete implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-//			DefaultTreeModel model = (DefaultTreeModel) this.f.tree.getModel();
 			DefaultMutableTreeNode select = this.f.selectedNode;
 			int result = JOptionPane.showConfirmDialog(null, "Sure? You want to delete?", "Swing Tester",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); // 0 = yes , 1= no
 			if (result == 0) {
 				System.out.println(this.f.val);
-//				ObjInfor o = (ObjInfor) select.getUserObject();
-//				ObjInfor obj = new ObjInfor(o.getFile(), this.f.user, "now", "delete," + 
-//						((ObjInfor) this.f.selectedNode.getUserObject()).file.getAbsolutePath());
 				ObjInfor obj = new ObjInfor(new File(this.f.val), this.f.user, "now", "delete," + this.f.val);
-				this.f.dataOutput.writeObject(obj);
+				ArrayList<Object> list = new ArrayList<>();
+				list.add(obj);
+				this.f.dataOutput.writeObject(list);
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
