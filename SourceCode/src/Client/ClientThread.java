@@ -56,9 +56,11 @@ public class ClientThread extends Thread {
 					model.removeNodeFromParent(temp);
 					model.reload();
 				} else if (listStr[0].equals("createFol")) {
+					File file = new File(listStr[1]);
+					file.mkdir();
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
 					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-					DefaultMutableTreeNode temp = findNode(root, this.fmain.val);
+					DefaultMutableTreeNode temp = findNode(root, file.getParent());
 					DefaultMutableTreeNode node = new DefaultMutableTreeNode(
 							new ObjInfor(new File(this.fmain.val + "\\" + listStr[1]), user, "", ""));
 					temp.add(node);
