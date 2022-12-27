@@ -2,6 +2,7 @@ package ClassObj;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Agent implements Serializable {
 	public String name;
 	public String username;

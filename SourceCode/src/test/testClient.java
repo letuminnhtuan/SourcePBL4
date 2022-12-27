@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.lang.*;
 import java.util.Scanner;
 
+import ClassObj.Agent;
+import ClassObj.ObjInfor;
+
 public class testClient {
 	public static void main(String[] args) throws Exception {
 		String fileName = null;
@@ -19,14 +22,16 @@ public class testClient {
 			System.out.println("Enter the name of the file :");
 			Scanner scanner = new Scanner(System.in);
 //			String file_name = scanner.nextLine();
-			String file_name = "E:\\test.txt";
+			String file_name = "E:\\A.pdf";
 
 			File file = new File(file_name);
-			Socket socket = new Socket("loc                                                                       alhost", 3332);
+			Socket socket = new Socket("localhost", 3332);
 			ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-
-			oos.writeObject(file.getName());
+			ObjInfor objInfor = new ObjInfor(file,
+					new Agent(file_name, file_name, file_name, file_name, 0, fileName, file_name), "now",
+					"upload,");
+			oos.writeObject(objInfor);
 
 			FileInputStream fis = new FileInputStream(file);
 			byte[] buffer = new byte[testServer.BUFFER_SIZE];

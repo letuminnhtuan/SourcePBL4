@@ -4,16 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
+import ClassObj.ObjFile;
 import ClassObj.ObjInfor;
 import GUI.fMain;
-import test.testServer;
 
 public class Upload implements ActionListener {
 	public fMain f;
@@ -28,17 +25,15 @@ public class Upload implements ActionListener {
 			JFileChooser fileChoose = new JFileChooser(new File("C:"));
 			fileChoose.showDialog(this.f, "Open");
 			File f = fileChoose.getSelectedFile();
-			ObjInfor obj = new ObjInfor(f, this.f.user, "now", "upload," + this.f.val);
-			this.f.dataOutput.writeObject(obj);
-			// Test -----------------------------------------------------
+			ObjInfor objInfor = new ObjInfor(f, this.f.user, "now", "upload," + this.f.val);
+			this.f.dataOutput.writeObject(objInfor);
+			
+			// Read File
 			FileInputStream fis = new FileInputStream(f);
-			byte[] buffer = new byte[100];
-			Integer bytesRead = 0;
-			while ((bytesRead = fis.read(buffer)) > 0) {
-				this.f.dataOutput.writeObject(bytesRead);
-				this.f.dataOutput.writeObject(Arrays.copyOf(buffer, buffer.length));
-			}
-			// Test -----------------------------------------------------
+			byte[] buffer = new byte[(int) f.length()];
+			fis.read(buffer);
+			ObjFile objFile = new ObjFile(buffer);
+			this.f.dataOutput.writeObject(objFile);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

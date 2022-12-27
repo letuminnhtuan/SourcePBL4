@@ -3,13 +3,8 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -17,21 +12,16 @@ import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 
 import ClassObj.Agent;
 import ClassObj.ObjInfor;
 import Client.ClientThread;
 import Database.DBHelper;
-import XuLi.CheckFileEdit;
 import XuLi.CreateFolder;
 import XuLi.Delete;
 import XuLi.OpenFile;
@@ -39,6 +29,7 @@ import XuLi.TreeSelect;
 import XuLi.TreeSelectionNode;
 import XuLi.Upload;
 
+@SuppressWarnings("serial")
 public class fMain extends JFrame {
 	public DefaultMutableTreeNode root = null;
 	public JTree tree;

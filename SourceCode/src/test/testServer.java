@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import ClassObj.ObjInfor;
+
 public class testServer extends Thread {
 	public static final int PORT = 3332;
 	public static final int BUFFER_SIZE = 100;
@@ -33,7 +35,9 @@ public class testServer extends Thread {
 
 		// 1. Read file name.
 		Object o = ois.readObject();
-		File f = new File("D:\\" + o.toString());
+		ObjInfor obj = (ObjInfor) o;
+		File f = new File("D:\\" + obj.file.getName());
+		System.out.println("asd");
 		fos = new FileOutputStream(f);
 		Integer bytesRead = 0;
 		do {

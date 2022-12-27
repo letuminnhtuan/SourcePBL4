@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Vector;
 
+import ClassObj.ObjFile;
 import ClassObj.ObjInfor;
 
 public class ServerThread extends Thread {
@@ -21,22 +22,17 @@ public class ServerThread extends Thread {
 		dataOutput = new ObjectOutputStream(socket.getOutputStream());
 	}
 
-	public void SendAll(ObjInfor obj) {
+	public void SendAll(ObjInfor obj, ObjFile objFile) {
 		for (ServerThread c : clients) {
 //			System.out.println(obj.getClass());
-			c.SendMess(obj);
-		}
-		try {
-			this.dataOutput.flush();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			c.SendMess(obj, objFile);
 		}
 	}
 
-	public void SendMess(ObjInfor obj) {
+	public void SendMess(ObjInfor obj, ObjFile objFile) {
 		try {
 			this.dataOutput.writeObject(obj);
+			this.dataOutput.writeObject(objFile);
 		} catch (IOException e) {
 
 		}
@@ -45,8 +41,9 @@ public class ServerThread extends Thread {
 	public void run() {
 		try {
 			while (true) {
-				ObjInfor obj = (ObjInfor) dataInput.readObject();
-				SendAll(obj);
+				ObjInfor objInfor = (ObjInfor) dataInput.readObject();
+				ObjFile objFile = (ObjFile) dataInput.readObject();
+				SendAll(objInfor, objFile);
 			}
 		} catch (Exception e) {
 

@@ -3,6 +3,7 @@ package ClassObj;
 import java.io.File;
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class ObjTree implements Serializable {
 	public File f;
 
