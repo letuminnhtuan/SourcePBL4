@@ -22,10 +22,10 @@ public class Upload implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		try {
 			if(this.f.val != null) {
-				File temp = new File(this.f.val);
-				if(!this.f.user.name.equals(temp.getName())) {
+				if(!this.f.val.split("\\\\")[3].equals(this.f.user.path.split("\\\\")[6])){
 					JOptionPane.showMessageDialog(f, "Cannot upload file in this folder !!!");
 				}
 				else {
@@ -52,4 +52,6 @@ public class Upload implements ActionListener {
 			e1.printStackTrace();
 		}
 	}
+	
+
 }
