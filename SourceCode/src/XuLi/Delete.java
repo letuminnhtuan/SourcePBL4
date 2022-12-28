@@ -23,18 +23,34 @@ public class Delete implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		try {
 			DefaultMutableTreeNode select = this.f.selectedNode;
-			int result = JOptionPane.showConfirmDialog(null, "Sure? You want to delete?", "Swing Tester",
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); // 0 = yes , 1= no
-			if (result == 0) {
-				System.out.println(this.f.val);
-				ObjInfor obj = new ObjInfor(new File(this.f.val), this.f.user, "now", "delete," + this.f.val);
-				ArrayList<Object> list = new ArrayList<>();
-				list.add(obj);
-				this.f.dataOutput.writeObject(list);
+			if(this.f.val != null) {
+				if(checkDelete()) {
+					int result = JOptionPane.showConfirmDialog(null, "Sure? You want to delete?", "Delete",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); // 0 = yes , 1= no
+					if (result == 0) {
+						ObjInfor obj = new ObjInfor(new File(this.f.val), this.f.user, "now", "delete," + this.f.val);
+						ArrayList<Object> list = new ArrayList<>();
+						list.add(obj);
+						this.f.dataOutput.writeObject(list);
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(f, "Cannot delete this file !!!");
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(f, "Select file to delete!!!");
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 	}
-
+	public boolean checkDelete() {
+		for(String str : this.f.val.split("\\\\")) {
+			if(str.equals(this.f.user.name)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

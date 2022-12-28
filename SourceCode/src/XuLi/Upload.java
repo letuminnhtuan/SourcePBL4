@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import ClassObj.ObjFile;
 import ClassObj.ObjInfor;
@@ -22,20 +23,31 @@ public class Upload implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			JFileChooser fileChoose = new JFileChooser(new File("C:"));
-			fileChoose.showDialog(this.f, "Open");
-			File f = fileChoose.getSelectedFile();
-			ObjInfor objInfor = new ObjInfor(f, this.f.user, "now", "upload," + this.f.val);
-			// Read File
-			FileInputStream fis = new FileInputStream(f);
-			byte[] buffer = new byte[(int) f.length()];
-			fis.read(buffer);
-			ObjFile objFile = new ObjFile(buffer);
-			// Send Object
-			ArrayList<Object> l = new ArrayList<>();
-			l.add(objInfor);
-			l.add(objFile);
-			this.f.dataOutput.writeObject(l);
+			if(this.f.val != null) {
+				File temp = new File(this.f.val);
+				if(!this.f.user.name.equals(temp.getName())) {
+					JOptionPane.showMessageDialog(f, "Cannot upload file in this folder !!!");
+				}
+				else {
+					JFileChooser fileChoose = new JFileChooser(new File("C:"));
+					fileChoose.showDialog(this.f, "Open");
+					File f = fileChoose.getSelectedFile();
+					if(f != null) {
+						ObjInfor objInfor = new ObjInfor(f, this.f.user, "now", "upload," + this.f.val);
+						// Read File
+						FileInputStream fis = new FileInputStream(f);
+						byte[] buffer = new byte[(int) f.length()];
+						fis.read(buffer);
+						ObjFile objFile = new ObjFile(buffer);
+						fis.close();
+						// Send Object
+						ArrayList<Object> l = new ArrayList<>();
+						l.add(objInfor);
+						l.add(objFile);
+						this.f.dataOutput.writeObject(l);
+					}
+				}
+			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

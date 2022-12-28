@@ -47,7 +47,6 @@ public class ClientThread extends Thread {
 					}
 					model.reload();
 				} else if (listStr[0].equals("delete")) {
-					System.out.println("del");
 					File file = new File(listStr[1]);
 					file.delete();
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();

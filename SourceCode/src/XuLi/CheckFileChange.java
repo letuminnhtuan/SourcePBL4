@@ -29,8 +29,8 @@ public class CheckFileChange {
 				WatchEvent<Path> ev = (WatchEvent<Path>) event;
 				Path fileName = ev.context();
 				File file = new File(path + "\\"+ fileName.getFileName());
-				System.out.println(file.getAbsolutePath());
 			}
+			
 			boolean valid = key.reset();
 			if (!valid) {
 				break;
