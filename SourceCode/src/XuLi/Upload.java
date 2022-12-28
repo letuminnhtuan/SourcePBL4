@@ -25,7 +25,7 @@ public class Upload implements ActionListener {
 		
 		try {
 			if(this.f.val != null) {
-				if(!this.f.val.split("\\\\")[3].equals(this.f.user.path.split("\\\\")[6])){
+				if(!checkUpload()){
 					JOptionPane.showMessageDialog(f, "Cannot upload file in this folder !!!");
 				}
 				else {
@@ -52,6 +52,13 @@ public class Upload implements ActionListener {
 			e1.printStackTrace();
 		}
 	}
-	
+	public boolean checkUpload() {
+		for(String str : this.f.val.split("\\\\")) {
+			if(str.equals(this.f.user.name)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

@@ -133,8 +133,8 @@ public class fMain extends JFrame {
 	}
 
 	public static void main(String[] args) throws Exception {
-//		new fMain("minhtuan");
+		new fMain("minhtuan");
 		new fMain("quanghuy");
-//		new fMain("ngochieu");
+		new fMain("ngochieu");
 	}
 }

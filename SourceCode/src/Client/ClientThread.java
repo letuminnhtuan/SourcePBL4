@@ -41,11 +41,17 @@ public class ClientThread extends Thread {
 					DefaultTreeModel model = (DefaultTreeModel) this.fmain.tree.getModel();
 					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 					DefaultMutableTreeNode temp = findNode(root, listStr[1]);
-					temp.add(new DefaultMutableTreeNode(new ObjInfor(file, user, "", "")));
-					try (FileOutputStream fos = new FileOutputStream(file)) {
-						fos.write(objFile.data);
+					if (findNode(root, file.getAbsolutePath()) == null) {
+						temp.add(new DefaultMutableTreeNode(new ObjInfor(file, user, "", "")));
+						try (FileOutputStream fos = new FileOutputStream(file)) {
+							fos.write(objFile.data);
+						}
+						model.reload();
+					} else {
+						try (FileOutputStream fos = new FileOutputStream(file, false)) {
+							fos.write(objFile.data);
+						}
 					}
-					model.reload();
 				} else if (listStr[0].equals("delete")) {
 					File file = new File(listStr[1]);
 					file.delete();
@@ -61,7 +67,7 @@ public class ClientThread extends Thread {
 					DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
 					DefaultMutableTreeNode temp = findNode(root, file.getParent());
 					DefaultMutableTreeNode node = new DefaultMutableTreeNode(
-							new ObjInfor(new File(this.fmain.val + "\\" + listStr[1]), user, "", ""));
+							new ObjInfor(new File(this.fmain.val + "\\" + file.getName()), user, "", ""));
 					temp.add(node);
 					model.reload();
 				}

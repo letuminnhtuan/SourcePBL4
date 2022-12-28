@@ -18,7 +18,6 @@ public class OpenFile implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		try {
-//			File file = new File(this.f.jtreeVal);
 			File file = new File(this.f.val);
 			if (file.exists()) {
 				if (Desktop.isDesktopSupported()) {
