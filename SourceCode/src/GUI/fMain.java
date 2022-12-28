@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,6 +26,7 @@ import Database.DBHelper;
 import XuLi.CreateFolder;
 import XuLi.Delete;
 import XuLi.OpenFile;
+import XuLi.PrevFile;
 import XuLi.TreeSelect;
 import XuLi.TreeSelectionNode;
 import XuLi.Upload;
@@ -38,6 +40,7 @@ public class fMain extends JFrame {
 	public JButton btnDelete;
 	public JButton btnCreFol;
 	public JButton btnOpen;
+	public JButton btnPrev;
 	public Container con;
 	public JPanel pnTree;
 	public Socket socket;
@@ -49,7 +52,7 @@ public class fMain extends JFrame {
 	public String[] result;
 	public String jtreeVal;
 	public String val;
-
+	public JEditorPane jep;
 	public fMain(String username) throws Exception {
 		DBHelper db = new DBHelper();
 		this.user = new Agent(db.getAgentByUsername(username));
@@ -73,6 +76,9 @@ public class fMain extends JFrame {
 		JPanel pnlRight = new JPanel();
 		pnlRight.setLayout(new BorderLayout(2, 2));
 		this.pnlRender = new JPanel();
+		jep = new JEditorPane();
+		jep.setPreferredSize(new Dimension(800, 600));
+		pnlRender.add(jep);
 		pnlRight.add(this.pnlRender, BorderLayout.CENTER);
 		JPanel pnlMenu = new JPanel();
 		pnlMenu.setBackground(Color.WHITE);
@@ -80,6 +86,8 @@ public class fMain extends JFrame {
 		btnUpload = new JButton("Upload");
 		btnUpload.addActionListener(new Upload(this));
 		btnDelete = new JButton("Delete");
+		btnPrev = new JButton("Preview");
+		btnPrev.addActionListener(new PrevFile(this));
 		btnDelete.addActionListener(new Delete(this));
 
 		btnOpen = new JButton("Open");
@@ -90,6 +98,7 @@ public class fMain extends JFrame {
 		btnCreFol.addActionListener(new CreateFolder(this));
 		pnlMenu.add(btnUpload);
 		pnlMenu.add(btnDelete);
+		pnlMenu.add(btnPrev);
 		pnlMenu.add(btnOpen);
 		pnlMenu.add(btnCreFol);
 		pnlRight.add(pnlMenu, BorderLayout.NORTH);
@@ -133,8 +142,8 @@ public class fMain extends JFrame {
 	}
 
 	public static void main(String[] args) throws Exception {
-		new fMain("minhtuan");
-		new fMain("quanghuy");
+//		new fMain("minhtuan");
+//		new fMain("quanghuy");
 		new fMain("ngochieu");
 	}
 }
