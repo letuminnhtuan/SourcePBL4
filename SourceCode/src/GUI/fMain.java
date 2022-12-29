@@ -35,7 +35,7 @@ import XuLi.Upload;
 public class fMain extends JFrame {
 	public DefaultMutableTreeNode root = null;
 	public JTree tree;
-	public JPanel pnlRender;
+//	public JPanel pnlRender;
 	public JButton btnUpload;
 	public JButton btnDelete;
 	public JButton btnCreFol;
@@ -75,11 +75,12 @@ public class fMain extends JFrame {
 		DisplayTree();
 		JPanel pnlRight = new JPanel();
 		pnlRight.setLayout(new BorderLayout(2, 2));
-		this.pnlRender = new JPanel();
 		jep = new JEditorPane();
-		jep.setPreferredSize(new Dimension(800, 600));
-		pnlRender.add(jep);
-		pnlRight.add(this.pnlRender, BorderLayout.CENTER);
+		jep.setPreferredSize(new Dimension(600, 600));
+		JScrollPane scrollPane = new JScrollPane(jep);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		pnlRight.add(scrollPane, BorderLayout.CENTER);
 		JPanel pnlMenu = new JPanel();
 		pnlMenu.setBackground(Color.WHITE);
 		pnlMenu.setLayout(new FlowLayout(FlowLayout.LEFT, 3, 5));
