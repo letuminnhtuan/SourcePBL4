@@ -18,7 +18,6 @@ public class TreeSelectionNode implements TreeSelectionListener{
 		DefaultMutableTreeNode t = (DefaultMutableTreeNode) e.getPath().getLastPathComponent(); 
 		ObjInfor o = (ObjInfor) t.getUserObject();
 		this.f.val = o.file.getAbsolutePath();
-		System.out.println(this.f.val);
 	}
 
 }

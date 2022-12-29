@@ -26,7 +26,6 @@ public class CreateFolder implements ActionListener {
 					File theDir = new File(this.f.val + "\\" + name);
 					ObjInfor obj = new ObjInfor(new File(this.f.val), this.f.user, "now",
 							"createFol," + theDir.getAbsolutePath());
-					System.out.println("--" + theDir.getAbsolutePath());
 					ArrayList<Object> list = new ArrayList<>();
 					list.add(obj);
 					this.f.dataOutput.writeObject(list);
